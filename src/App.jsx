@@ -1,9 +1,6 @@
-<<<<<<< HEAD
-import { useContext, useState, useEffect } from 'react'
-=======
+// app.jsx
 import './App.css';
-import { useContext } from 'react'
->>>>>>> 9c934eb146c645fe67c9c5ca179dce8372409113
+import { useContext, useState, useEffect } from 'react'
 import { Routes, Route } from 'react-router'
 import NavBar from './components/NavBar/Navbar.jsx'
 import SignUpForm from './components/SignUpForm/SignUpForm.jsx'
