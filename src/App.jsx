@@ -1,9 +1,6 @@
-<<<<<<< HEAD
-import { useContext, useState, useEffect } from 'react'
-=======
+// app.jsx
 import './App.css';
-import { useContext } from 'react'
->>>>>>> 9c934eb146c645fe67c9c5ca179dce8372409113
+import { useContext, useState, useEffect } from 'react'
 import { Routes, Route } from 'react-router'
 import NavBar from './components/NavBar/Navbar.jsx'
 import SignUpForm from './components/SignUpForm/SignUpForm.jsx'
@@ -17,11 +14,11 @@ import TransactionList from './components/Transactions/TransactionList.jsx';
 const App = () => {
     const { user } = useContext(UserContext)
     const [categories, setCategories] =useState([]);
-    console.log(categories)
+    // console.log(categories)
     useEffect(() => {
     const fetchAllCategories = async () => {
       const categoriesData = await categoryService.index();
-      console.log("categories:", categoriesData);
+    //   console.log("categories:", categoriesData);
       setCategories(categoriesData);
     };
     if (user) fetchAllCategories();

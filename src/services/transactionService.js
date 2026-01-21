@@ -1,8 +1,10 @@
-const BASE_URL = `${import.meta.env.VITE_BACKEND_URL}/transactions`;
+const BASE_URL = `${import.meta.env.VITE_BACK_END_SERVER_URL}/transactions`;
 
 
 // GET summary/recent transactions
 const getRecent = async () => {
+  // debugging
+  console.log("FETCHING FROM:", `${BASE_URL}/recent`);
   try {
     const res = await fetch(`${BASE_URL}/recent`, {
       headers: { 

@@ -2,8 +2,8 @@ import { useContext, useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { UserContext } from '../../contexts/UserContext';
 import * as userService from '../../services/userService';
-// import transactionService for quick summary view of last 5 transactions/current balance
-import * as transactionService from '../../services/transactionService';
+// import getRecent for quick summary view of last 5 transactions/current balance
+import { getRecent } from '../../services/transactionService';
 
 const Dashboard = () => {
     const { user } = useContext(UserContext)
@@ -13,10 +13,11 @@ const Dashboard = () => {
     useEffect(() => {
         const fetchUsers = async () => {
             try {
-                const fetchedUsers = await userService.index()
-                setUsers(fetchedUsers)
-                const transData = await transactionService.getRecent();
-                setRecentTransactions(transData);
+                const fetchedUsers = await userService.index();
+                setUsers(fetchedUsers);
+
+                const transData = await getRecent();
+                setRecentTransactions(transData || []);
             } catch (err) {
                 console.log(err)
             }
