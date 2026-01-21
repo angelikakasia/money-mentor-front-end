@@ -1,4 +1,4 @@
-import { use, useContext, useEffect, useState } from 'react';
+import { useContext, useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { UserContext } from '../../contexts/UserContext';
 import * as userService from '../../services/userService';
@@ -34,11 +34,11 @@ const Dashboard = () => {
             <section>
             <h2>Here are your recent money moves.</h2>
                 <ul>
-                    {recentTransactions.map((transaction) => {
+                    {recentTransactions.map((transaction) => (
                         <li key={transaction._id}>
-                            {transaction.description}: ${transaction.amount} ({transaction.category?.name});
+                            {transaction.description}: ${transaction.amount} ({transaction.category?.name})
                         </li>
-                    })}
+                    ))}
                 </ul>
                 <Link to ='/transactions'>View All Transactions</Link>
             </section>
