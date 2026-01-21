@@ -1,49 +1,78 @@
-// app.jsx
-import './App.css';
-import { useContext, useState, useEffect } from 'react'
-import { Routes, Route } from 'react-router'
-import NavBar from './components/NavBar/Navbar.jsx'
-import SignUpForm from './components/SignUpForm/SignUpForm.jsx'
-import SignInForm from './components/SignInForm/SignInForm.jsx'
-import Landing from './components/Landing/Landing.jsx'
-import Dashboard from './components/Dashboard/Dashboard.jsx'
-import * as categoryService from "./services/categoryService.js"
-import { UserContext } from './contexts/UserContext.jsx'
-import TransactionList from './components/Transactions/TransactionList.jsx';
+// App.jsx
+import "./App.css";
+import { useContext, useState, useEffect } from "react";
+import { Routes, Route } from "react-router";
+
+import NavBar from "./components/NavBar/Navbar.jsx";
+import SignUpForm from "./components/SignUpForm/SignUpForm.jsx";
+import SignInForm from "./components/SignInForm/SignInForm.jsx";
+import Landing from "./components/Landing/Landing.jsx";
+import Dashboard from "./components/Dashboard/Dashboard.jsx";
+
+import TransactionList from "./components/Transactions/TransactionList.jsx";
+
+import * as categoryService from "./services/categoryService.js";
+import * as transactionService from "./services/transactionService.js";
+
+import { UserContext } from "./contexts/UserContext.jsx";
 
 const App = () => {
-    const { user } = useContext(UserContext)
-    const [categories, setCategories] =useState([]);
-    // console.log(categories)
-    useEffect(() => {
+  const { user } = useContext(UserContext);
+
+  // Needed for TransactionList
+  const [categories, setCategories] = useState([]);
+  const [transactions, setTransactions] = useState([]);
+
+  useEffect(() => {
     const fetchAllCategories = async () => {
       const categoriesData = await categoryService.index();
-    //   console.log("categories:", categoriesData);
       setCategories(categoriesData);
     };
-    if (user) fetchAllCategories();
+
+    const fetchAllTransactions = async () => {
+      const transactionsData = await transactionService.index();
+      setTransactions(transactionsData);
+    };
+
+    if (user) {
+      fetchAllCategories();
+      fetchAllTransactions();
+    } else {
+      // Clear state on sign out (prevents showing stale private data)
+      setCategories([]);
+      setTransactions([]);
+    }
   }, [user]);
-    return (
-        <>
-            <NavBar />
-            <Routes>
-                <Route path='/' element={user ? <Dashboard /> : <Landing />} />
-                { user ? (
-                    <>
-                    {/* protected routes availabe only to signed in users */} 
-                    <Route path="/transactions" element={<TransactionList />} />
-                    </>
-                ) : (
-                    <>
-                    {/* non user routes for guests */}
-                    <Route path='/sign-up' element={<SignUpForm />} />
-                    <Route path='/sign-in' element={<SignInForm />} />
-                    </>
-                )}
-            </Routes>
-        </>
-    )
 
-}
+  return (
+    <>
+      <NavBar />
+      <Routes>
+        <Route path="/" element={user ? <Dashboard /> : <Landing />} />
 
-export default App
+        {user ? (
+          <>
+            {/* Protected routes available only to signed-in users */}
+            <Route
+              path="/transactions"
+              element={
+                <TransactionList
+                  transactions={transactions}
+                  categories={categories}
+                />
+              }
+            />
+          </>
+        ) : (
+          <>
+            {/* Non-user routes for guests */}
+            <Route path="/sign-up" element={<SignUpForm />} />
+            <Route path="/sign-in" element={<SignInForm />} />
+          </>
+        )}
+      </Routes>
+    </>
+  );
+};
+
+export default App;
