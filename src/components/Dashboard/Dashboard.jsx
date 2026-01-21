@@ -36,7 +36,9 @@ const Dashboard = () => {
                 <ul>
                     {recentTransactions.map((transaction) => (
                         <li key={transaction._id}>
-                            {transaction.description}: ${transaction.amount} ({transaction.category?.name})
+                            {transaction.description}: 
+                            {new Intl.NumberFormat('en-US', { style: 'currency', currency: 'USD' }).format(transaction.amount)} 
+                            ({transaction.category?.name})
                         </li>
                     ))}
                 </ul>
