@@ -10,6 +10,7 @@ import Landing from "./components/Landing/Landing.jsx";
 import Dashboard from "./components/Dashboard/Dashboard.jsx";
 
 import TransactionList from "./components/Transactions/TransactionList.jsx";
+import TransactionDetails from "./components/Transactions/TransactionDetails.jsx";
 
 import * as categoryService from "./services/categoryService.js";
 import * as transactionService from "./services/transactionService.js";
@@ -61,6 +62,10 @@ const App = () => {
                   categories={categories}
                 />
               }
+            />
+            <Route
+              path="/transactions/:transactionId"
+              element={<TransactionDetails />}
             />
           </>
         ) : (
