@@ -19,6 +19,9 @@ const NavBar = () => {
                         <Link to='/transactions'>Transactions</Link>
                     </li>
                     <li>
+                        <Link to="/summary">Monthly Summary</Link>
+                    </li>
+                    <li>
                         <Link to='/' onClick={handleSignOut}>
                             Sign out
                         </Link>

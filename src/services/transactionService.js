@@ -11,7 +11,7 @@ const index = async () => {
   }
 };
 
-// GET summary/recent transactions
+// GET /recent -- summary/recent transactions
 const getRecent = async () => {
   // debugging
   console.log("FETCHING FROM:", `${BASE_URL}/recent`);
@@ -33,4 +33,16 @@ const getRecent = async () => {
   }
 };
 
-export { index, getRecent };
+// GET /monthly-summary -- monthly transactions
+const getMonthlySummary = async () => {
+  try {
+    const res = await fetch(`${BASE_URL}/monthly-summary`, {
+      headers: { Authorization: `Bearer ${localStorage.getItem('token')}` },
+    });
+    return res.json();
+  } catch (err) {
+    console.log(err);
+  }
+};
+
+export { index, getRecent, getMonthlySummary };

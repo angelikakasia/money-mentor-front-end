@@ -15,6 +15,7 @@ import * as categoryService from "./services/categoryService.js";
 import * as transactionService from "./services/transactionService.js";
 
 import { UserContext } from "./contexts/UserContext.jsx";
+import MonthlySummary from "./components/MonthSummary/MonthSummary.jsx";
 
 const App = () => {
   const { user } = useContext(UserContext);
@@ -60,8 +61,9 @@ const App = () => {
                   transactions={transactions}
                   categories={categories}
                 />
-              }
+                }
             />
+            <Route path='/summary' element={<MonthlySummary />} />
           </>
         ) : (
           <>
