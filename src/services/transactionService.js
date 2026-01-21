@@ -9,6 +9,12 @@ const getRecent = async () => {
         Authorization: `Bearer ${localStorage.getItem('token')}` 
       },
     });
+    // debugging
+    if (!res.ok) {
+    const text = await res.text(); // Get the response as text, not JSON
+    console.error("Server sent back:", text);
+    throw new Error("Check your console to see the HTML the server sent!");
+  }
     return res.json();
   } catch (err) {
     console.log(err);
