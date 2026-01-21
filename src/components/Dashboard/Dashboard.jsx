@@ -18,6 +18,8 @@ const Dashboard = () => {
 
                 const transData = await getRecent();
                 setRecentTransactions(transData || []);
+                // debugging () in each transaction
+                console.log("RECENT DATA ARRIVED:", transData);
             } catch (err) {
                 console.log(err)
             }
@@ -37,9 +39,8 @@ const Dashboard = () => {
                 <ul>
                     {recentTransactions.map((transaction) => (
                         <li key={transaction._id}>
-                            {transaction.description}: 
+                            {transaction.description}: {' '}
                             {new Intl.NumberFormat('en-US', { style: 'currency', currency: 'USD' }).format(transaction.amount)} 
-                            ({transaction.category?.name})
                         </li>
                     ))}
                 </ul>
