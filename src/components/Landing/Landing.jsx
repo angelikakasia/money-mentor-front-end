@@ -11,7 +11,7 @@ const reviews = [
 
 const ReviewTicker = () => {
   return (
-    <div className="ticker-container">
+    <div className="testimonials-container">
       <div className="ticker-track">
         {/* Render the list twice for the infinite loop effect */}
         {reviews.map((review, index) => (
@@ -30,7 +30,6 @@ const Landing = () => {
     <div className="auth-page">
       <header className="auth-header">
         <div className="brand">Money Mentor</div>
-        <NavBar />
       </header>
 
       <main className="landing-container">
