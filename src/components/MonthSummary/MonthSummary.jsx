@@ -31,7 +31,7 @@ const MonthlySummary = () => {
     // filter transactions by type
     const filteredTransactions = allTransactions.filter(transaction => {
         if (filter === 'all') return true;
-            return transaction.type === filter;
+            return transaction.categoryId?.type === filter;
     });
 
     const incomeTotal = allTransactions.filter(transaction => transaction.categoryId?.type === 'Income').reduce((acc, transaction) => acc + transaction.amount, 0);
@@ -69,11 +69,23 @@ const MonthlySummary = () => {
                 <h3>Total: ${total.toFixed(2)}</h3>
 
                 <ul>
-                    {filteredTransactions.map(transaction => (
+                    {filteredTransactions.map(transaction => {
+                        const isIncome = transaction.categoryId?.type === 'Income';
+                        const symbol = isIncome ? '+' : '-';
+
+                        return (
                       <li key={transaction._id}>
-                        {transaction.description}: ${transaction.amount} ({transaction.type})
+                        {/* date */}
+                        {new Date(transaction.date).toLocaleDateString()} |
+                        {/* description & type */}
+                        {" "}{transaction.description} ({transaction.categoryId?.type}) |
+                        {/* category name */}
+                        {" "}{transaction.categoryId?.name}
+                        {/* amount */} 
+                        {" "}{symbol}${transaction.amount}
                       </li>  
-                    ))}
+                    );
+                })}
                 </ul>
             </main>
         </>
