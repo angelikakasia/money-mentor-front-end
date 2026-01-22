@@ -1,8 +1,9 @@
-import { useParams } from "react-router";
+import { useParams, Link, useNavigate } from "react-router";
 import { useEffect, useState } from "react";
 import * as transactionService from "../../services/transactionService";
 
 const TransactionDetails = ({ categories }) => {
+  const navigate = useNavigate();
   const { transactionId } = useParams();
   const [transaction, setTransaction] = useState(null);
 
@@ -31,7 +32,7 @@ const TransactionDetails = ({ categories }) => {
       <h1>Transaction Details</h1>
 
       <h2>
-        {transaction.type} {transaction.type === "Income" ? "+" : "-"}$
+        {transaction.type} • {transaction.type === "Income" ? "+" : "-"}$
         {Number(transaction.amount).toFixed(2)}
       </h2>
 
@@ -39,6 +40,11 @@ const TransactionDetails = ({ categories }) => {
       <p>Date: {new Date(transaction.date).toLocaleDateString()}</p>
       <p>Description: {transaction.description || "No description"}</p>
       <p>Note: {transaction.note || "No note"}</p>
+
+      <section>
+        <Link to={`/transactions/${transactionId}/edit`}>Edit</Link>{" "}
+        <button onClick={() => navigate("/transactions")}>Back</button>
+      </section>
     </main>
   );
 };
