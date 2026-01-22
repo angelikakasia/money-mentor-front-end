@@ -52,6 +52,11 @@ const TransactionForm = () => {
     setFormData({ ...formData, [evt.target.name]: evt.target.value });
   };
 
+  const setType = (nextType) => {
+    // When switching type, reset categoryId to avoid mismatched categories
+    setFormData((prev) => ({ ...prev, type: nextType, categoryId: "" }));
+  };
+
   return (
     <main>
       <h1>{transactionId ? "Edit Transaction" : "New Transaction"}</h1>
@@ -84,16 +89,26 @@ const TransactionForm = () => {
           onChange={handleChange}
         />
 
-        <label htmlFor="type-input">Type</label>
-        <select
-          id="type-input"
-          name="type"
-          value={formData.type}
-          onChange={handleChange}
-        >
-          <option value="Income">Income</option>
-          <option value="Expense">Expense</option>
-        </select>
+        <label>Type</label>
+        <div>
+          <button
+            type="button"
+            onClick={() => setType("Income")}
+            aria-pressed={formData.type === "Income"}
+            disabled={formData.type === "Income"}
+          >
+            Income
+          </button>
+
+          <button
+            type="button"
+            onClick={() => setType("Expense")}
+            aria-pressed={formData.type === "Expense"}
+            disabled={formData.type === "Expense"}
+          >
+            Expense
+          </button>
+        </div>
 
         <label htmlFor="categoryId-input">Category</label>
         <input
