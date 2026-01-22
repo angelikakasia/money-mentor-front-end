@@ -37,7 +37,7 @@ const getRecent = async () => {
 const getMonthlySummary = async () => {
   try {
     const res = await fetch(`${BASE_URL}/monthly-summary`, {
-      headers: { Authorization: `Bearer ${localStorage.getItem('token')}` },
+      headers: { Authorization: `Bearer ${localStorage.getItem("token")}` },
     });
     return res.json();
   } catch (err) {
@@ -45,4 +45,16 @@ const getMonthlySummary = async () => {
   }
 };
 
-export { index, getRecent, getMonthlySummary };
+// GET /transactions/:id - fetch a single transaction
+const show = async (transactionId) => {
+  try {
+    const res = await fetch(`${BASE_URL}/${transactionId}`, {
+      headers: { Authorization: `Bearer ${localStorage.getItem("token")}` },
+    });
+    return res.json();
+  } catch (error) {
+    console.log(error);
+  }
+};
+
+export { index, getRecent, getMonthlySummary, show };
