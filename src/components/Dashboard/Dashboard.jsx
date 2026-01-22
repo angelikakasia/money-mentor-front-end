@@ -27,16 +27,21 @@ const Dashboard = () => {
             <>
             <h1>Welcome, {user.username}!</h1>
             <section>
-            <h2>Here are your recent money moves.</h2>
+                <h2>Here are your recent money moves.</h2>
                 <ul>
-                    {recentTransactions.map((transaction) => (
+                    {recentTransactions.map((transaction) => {
+                        const isIncome = transaction.categoryId?.type === 'Income';
+                        const symbol = isIncome ? '+' : '-';
+
+                        return (
                         <li key={transaction._id}>
                             {transaction.description}: {' '}
-                            {new Intl.NumberFormat('en-US', { style: 'currency', currency: 'USD' }).format(transaction.amount)} 
+                            {symbol}{new Intl.NumberFormat('en-US', { style: 'currency', currency: 'USD' }).format(transaction.amount)} 
                         </li>
-                    ))}
+                    );
+                })}
                 </ul>
-                <Link to ='/transactions'>View All Transactions</Link>
+                <Link to ='/transactions'><button>View All Transactions</button></Link>
             </section>
             </>
         </main>
