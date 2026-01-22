@@ -11,6 +11,7 @@ import Dashboard from "./components/Dashboard/Dashboard.jsx";
 
 import TransactionList from "./components/Transactions/TransactionList.jsx";
 import TransactionDetails from "./components/Transactions/TransactionDetails.jsx";
+import TransactionForm from "./components/Transactions/TransactionForm.jsx";
 
 import * as categoryService from "./services/categoryService.js";
 import * as transactionService from "./services/transactionService.js";
@@ -68,6 +69,10 @@ const App = () => {
             <Route
               path="/transactions/:transactionId"
               element={<TransactionDetails categories={categories} />}
+            />
+            <Route
+              path="/transactions/:transactionId/edit"
+              element={<TransactionForm />}
             />
           </>
         ) : (
