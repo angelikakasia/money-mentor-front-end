@@ -2,7 +2,7 @@ import { useParams } from "react-router";
 import { useEffect, useState } from "react";
 import * as transactionService from "../../services/transactionService";
 
-const TransactionForm = () => {
+const TransactionForm = ({ categories }) => {
   const { transactionId } = useParams();
 
   const [formData, setFormData] = useState({
@@ -57,6 +57,7 @@ const TransactionForm = () => {
     setFormData((prev) => ({ ...prev, type: nextType, categoryId: "" }));
   };
 
+  const filteredCategories = categories.filter((c) => c.type === formData.type);
   return (
     <main>
       <h1>{transactionId ? "Edit Transaction" : "New Transaction"}</h1>
@@ -111,14 +112,20 @@ const TransactionForm = () => {
         </div>
 
         <label htmlFor="categoryId-input">Category</label>
-        <input
+        <select
           id="categoryId-input"
           name="categoryId"
-          type="text"
           value={formData.categoryId}
           onChange={handleChange}
-          placeholder="Category id for now..."
-        />
+        >
+          <option value="">Select a category</option>
+
+          {filteredCategories.map((c) => (
+            <option key={c._id} value={c._id}>
+              {c.name}
+            </option>
+          ))}
+        </select>
 
         <label htmlFor="note-input">Note</label>
         <input

@@ -72,7 +72,7 @@ const App = () => {
             />
             <Route
               path="/transactions/:transactionId/edit"
-              element={<TransactionForm />}
+              element={<TransactionForm categories={categories} />}
             />
           </>
         ) : (
