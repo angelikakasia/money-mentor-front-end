@@ -1,19 +1,44 @@
 import { useState, useEffect } from "react";
 import { getMonthlySummary } from "../../services/transactionService";
 import { Link } from 'react-router-dom';
+import { 
+  BarChart, Bar, XAxis, YAxis, CartesianGrid, 
+  Tooltip, ResponsiveContainer, Legend 
+} from 'recharts';
 
 const MonthlySummary = () => {
     const [allTransactions, setAllTransactions] = useState([]);
     // filter for all, income or expense
     const [filter, setFilter] = useState('all');
+    const [loading, setLoading] = useState(true);
+    const [containerWidth, setContainerWidth] = useState(0);
 
+    // fetch data
     useEffect(() => {
         const fetchSummary = async () => {
             const data = await getMonthlySummary();
-            setAllTransactions(data);
+            setAllTransactions(data || []);
+            setLoading(false);
         };
         fetchSummary();
     }, []);
+
+    // watch container size after loading is done
+    useEffect(() => {
+        if (loading || allTransactions.length === 0) return;
+
+        const observer = new ResizeObserver((entries) => {
+            setContainerWidth(entries[0].contentRect.width);
+        });
+
+        const chartContainer = document.querySelector('.transactions-chart');
+        if (chartContainer) observer.observe(chartContainer);
+
+        return () => observer.disconnect;
+    }, [loading, allTransactions]);
+
+    // handle data loading
+    if (loading) return <main><p>Loading your summary...</p></main>;
 
     // handle edge case of no data/transactions
     if (allTransactions.length === 0) {
@@ -35,37 +60,37 @@ const MonthlySummary = () => {
     });
 
     const incomeTotal = allTransactions.filter(transaction => transaction.categoryId?.type === 'Income').reduce((acc, transaction) => acc + transaction.amount, 0);
-
     const expenseTotal = allTransactions.filter(transaction => transaction.categoryId?.type === 'Expense').reduce((acc, transaction) => acc + transaction.amount, 0);
-
-    const netSavings = incomeTotal - expenseTotal;
-
     const total = filteredTransactions.reduce((acc, transaction) => acc + transaction.amount, 0);
+
+    const chartData = [
+        { name: 'Income', amount: incomeTotal, fill: '#4CAF50' },
+        { name: 'Expenses', amount: expenseTotal, fill: '#F44336' }
+    ];
+    
+    const typeTotals = filteredTransactions.reduce((acc, transaction) => {
+        const typeName = transaction.categoryId?.name || 'Uncategorized';
+        acc[typeName] = (acc[typeName] || 0) + transaction.amount;
+        return acc;
+    }, {});
+
+    const dynamicChartData = Object.keys(typeTotals).map(name => ({
+        name: name, 
+        amount: typeTotals[name],
+        fill: filter === 'Income' ? '#4CAF50' : '#F44336'
+    }));
 
     return (
         <>
             <main>
                 <h1>Monthly Summary</h1>
-                <section>
-                    {/* <div>
-                        <h4>Total Income:</h4>
-                        <p>${incomeTotal.toFixed(2)}</p>
-                    </div>
-                    <div>
-                    <h4>Total Expenses:</h4>
-                        <p>${expenseTotal.toFixed(2)}</p>
-                    </div>
-                    <div>
-                    <h4>Net Savings:</h4>
-                        <p>${netSavings.toFixed(2)}</p>
-                    </div> */}
-                
+                <section className="filter-transactions">
                     <div className="filter-btns">
                         <button onClick={() => setFilter('all')}>All Transactions</button>
                         <button onClick={() => setFilter('Income')}>Income</button>
                         <button onClick={() => setFilter('Expense')}>Expenses</button>
                     </div>
-                </section>
+                
                 <h3>Total: ${total.toFixed(2)}</h3>
 
                 <ul>
@@ -87,6 +112,30 @@ const MonthlySummary = () => {
                     );
                 })}
                 </ul>
+                </section>
+                {/* chart section */}
+                <section className="transactions-chart" style={{ width: '100%', height: '300px', marginBottom:'60px' }}>
+                    <h2>{filter === 'all' ? 'Income vs Expenses' : `${filter} Breakdown`}</h2>
+                    {/* Only render the chart if mounted and we have data */}
+                    {containerWidth > 0 && ( 
+                    <ResponsiveContainer width='100%' height='100%' minWidth={0}> 
+                        <BarChart data={filter === 'all' ? chartData : dynamicChartData} margin={{ top: 20, right: 30, left: 20, bottom: 5}}>
+                            <CartesianGrid strokeDasharray='3 3' vertical={false} />
+                            <XAxis dataKey='name' />
+                            <YAxis tickFormatter={(value) => `$${value}`} />
+                            <Tooltip 
+                                formatter={(value) => [`$${value.toFixed(2)}`, 'Amount']}
+                                cursor={{ fill: 'transparent' }}
+                            />
+                            <Legend />
+                            <Bar dataKey='amount' radius={[4, 4, 0, 0]} />
+                        </BarChart>
+                    </ResponsiveContainer>
+                    )}
+                </section>
+                <Link to="/">
+                    <button>Return to Dashboard</button>
+                </Link>
             </main>
         </>
     );
