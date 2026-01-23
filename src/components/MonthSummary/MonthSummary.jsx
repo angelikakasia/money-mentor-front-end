@@ -108,16 +108,6 @@ const MonthlySummary = () => {
                                 {isIncome ? '💰' : '💸'}
                             </div>
                         </div>
-                        <div className="transaction-details"></div>
-                        {/* date */}
-                        {new Date(transaction.date).toLocaleDateString()} |
-                        {/* description & type */}
-                        {" "}{transaction.description} ({transaction.categoryId?.type}) |
-                        {/* category name */}
-                        {" "}{transaction.categoryId?.name}
-                        {/* amount */} 
-                        {" "}{symbol}${transaction.amount}
-                      </li>  
                         <div className="transaction-details">
                             {/* description */}
                             <div className="transaction-desc">{transaction.description}</div>
