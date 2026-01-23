@@ -196,6 +196,52 @@ body, html {
 }
 
 /* classes for monthly summary */
+.stats-card {
+  background: #ffffff;
+  padding: 24px;
+  border-radius: 16px;
+  box-shadow: 0 4px 20px rgba(0,0,0,0.08);
+  margin-bottom: 30px;
+}
+
+.stats-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px;
+}
+
+.month-dropdown {
+  padding: 8px 12px;
+  border-radius: 8px;
+  border: 1px solid #ddd;
+  font-size: 1rem;
+  background-color: #333333;
+}
+
+.stats-grid {
+  display: flex;
+  justify-content: space-around;
+  border-top: 1px solid #eee;
+  padding-top: 20px;
+}
+
+.stat-item {
+  display: flex;
+  flex-direction: column;
+}
+
+.stat-item .label {
+  font-size: 0.85rem;
+  color: #8898aa;
+  margin-bottom: 5px;
+}
+
+.stat-item .value {
+  font-size: 1.25rem;
+  font-weight: 700;
+}
+
 .transaction-list {
   list-style: none;
   padding: 0;

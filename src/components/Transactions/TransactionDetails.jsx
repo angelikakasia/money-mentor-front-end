@@ -52,7 +52,7 @@ const TransactionDetails = ({ categories, handleDeleteTransaction }) => {
         >
           Delete
         </button>
-        <button onClick={() => navigate("/transactions")}>Back</button>
+        <button onClick={() => navigate(-1)}>Back</button>
       </section>
     </main>
   );
