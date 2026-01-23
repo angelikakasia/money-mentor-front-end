@@ -195,6 +195,22 @@ body, html {
   max-width: 800px; 
 }
 
+.net-positive {
+  color: #33AA5E; 
+}
+
+.net-negative {
+  color: #CB4F4C;
+}
+
+.value.income {
+  color: #33AA5E;
+}
+
+.value.expense {
+  color: #333;
+}
+
 /* classes for monthly summary */
 .stats-card {
   background: #ffffff;
