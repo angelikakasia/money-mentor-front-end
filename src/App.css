@@ -211,6 +211,18 @@ body, html {
   color: #333;
 }
 
+.transactions-list {
+  max-width: 600px;
+  margin: 0 auto; 
+  padding: 0;
+}
+
+.transaction-link {
+  display: inline-block; 
+  text-decoration: none;
+  color: inherit;
+}
+
 /* classes for monthly summary */
 .stats-card {
   background: #ffffff;
