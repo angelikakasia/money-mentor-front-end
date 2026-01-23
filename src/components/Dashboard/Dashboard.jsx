@@ -38,8 +38,6 @@ const Dashboard = () => {
         .reduce((acc, transactions) => acc + Number(transactions.amount), 0);
     const net = income - expenses;
 
-    console.log(allTransactions[0]?.categoryId);
-
     const recentMoves = [...allTransactions]
         .sort((a, b) => new Date(b.date) - new Date(a.date))
         .slice(0, 5);
