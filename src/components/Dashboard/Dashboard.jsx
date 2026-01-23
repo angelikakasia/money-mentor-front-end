@@ -53,7 +53,7 @@ const Dashboard = () => {
     return (
         <main className='main-content-container'>
             <>
-            <h1>Welcome, {user.username}!</h1>
+            <h1>Welcome to your dashboard, {user.username}!</h1>
             {/* monthly stats at a glance */}
             <section className='monthly-stats-section'>
                 <div className='stats-header'>
