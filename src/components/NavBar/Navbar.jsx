@@ -17,7 +17,7 @@ const NavBar = () => {
           <div className="nav-left">
             <Link to="/">
               <img
-                src="src/assets/favicon-512.png"
+                src="src/assets/Money Mentor (3) 1.svg"
                 alt="money-mentor-logo"
                 className="nav-logo"
               />
