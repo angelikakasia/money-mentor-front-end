@@ -1,5 +1,4 @@
 // App.jsx
-import "./App.css";
 import { useContext, useState, useEffect } from "react";
 import { Routes, Route, useNavigate } from "react-router";
 

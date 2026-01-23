@@ -147,7 +147,7 @@ const MonthlySummary = () => {
                     )}
                 </section>
                 <Link to="/">
-                    <button>Return to Dashboard</button>
+                    <button type='button'>Return to Dashboard</button>
                 </Link>
             </main>
         </>

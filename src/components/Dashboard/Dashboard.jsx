@@ -29,7 +29,7 @@ const Dashboard = () => {
         if (user) fetchDashboardData()
     }, [user]);
 
-    const monthlyData = allTransactions.filter(transactions => transactions.date.startsWith(selectedMonth));
+    const monthlyData = allTransactions.filter(transactions => transactions.date && transactions.date.toString().startsWith(selectedMonth));
     const income = monthlyData
         .filter(transactions => transactions.categoryId?.type === 'Income')
         .reduce((acc, transactions) => acc + Number(transactions.amount), 0);
@@ -99,7 +99,7 @@ const Dashboard = () => {
                 </ul>
                 <div className="transactions-actions">
                     <Link to ='/transactions'>
-                        <button>View All Transactions</button>
+                        <button type='button'>View All Transactions</button>
                     </Link>
                     <Link to="/transactions/new">
                         <button type="button">+ Add Transaction</button>
