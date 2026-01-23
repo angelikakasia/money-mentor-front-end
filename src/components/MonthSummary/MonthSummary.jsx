@@ -86,7 +86,7 @@ const MonthlySummary = () => {
 
     return (
         <>
-            <main>
+            <main className="main-content-container">
                 <h1>Monthly Summary</h1>
                 <section className="filter-transactions">
                     <div className="filter-btns">
@@ -97,22 +97,31 @@ const MonthlySummary = () => {
                 
                 <h3>Total: ${total.toFixed(2)}</h3>
 
-                <ul>
+                <ul className="transactions-list">
                     {filteredTransactions.map(transaction => {
                         const isIncome = transaction.categoryId?.type === 'Income';
-                        const symbol = isIncome ? '+' : '-';
 
                         return (
-                      <li key={transaction._id}>
-                        {/* date */}
-                        {new Date(transaction.date).toLocaleDateString()} |
-                        {/* description & type */}
-                        {" "}{transaction.description} ({transaction.categoryId?.type}) |
-                        {/* category name */}
-                        {" "}{transaction.categoryId?.name}
-                        {/* amount */} 
-                        {" "}{symbol}${transaction.amount}
-                      </li>  
+                      <li key={transaction._id} className="transaction-card">
+                        <div className="transaction-info">
+                            <div className="transaction-icon">
+                                {isIncome ? '💰' : '💸'}
+                            </div>
+                        </div>
+                        <div className="transaction-details">
+                            {/* description */}
+                            <div className="transaction-desc">{transaction.description}</div>
+                            {/* date & category */}
+                            <div className="transaction-meta"> 
+                                {new Date(transaction.date).toLocaleDateString()} | 
+                                {transaction.categoryId?.name}
+                            </div>
+                        </div>
+                        {/* amount */}
+                        <div className={`transaction-amount ${isIncome} ? 'amount-income' : 'amount-expense'}`}>
+                            {isIncome ? '+' : '-'}${transaction.amount.toFixed(2)}
+                        </div>
+                      </li> 
                     );
                 })}
                 </ul>
