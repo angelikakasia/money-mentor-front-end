@@ -1,31 +1,20 @@
+* {
+  box-sizing: border-box;
+}
+
+body, html {
+  margin: 0;
+  padding: 0;
+  width: 100%;
+  overflow-x: hidden; 
+}
+
 #root {
-  max-width: 1280px;
-  margin: 0 auto;
-  padding: 2rem;
+  width: 100%; 
+  margin: 0;
+  padding: 0;
   text-align: center;
 } 
-
-.logo {
-  height: 6em;
-  padding: 1.5em;
-  will-change: filter;
-  transition: filter 300ms;
-}
-.logo:hover {
-  filter: drop-shadow(0 0 2em #646cffaa);
-}
-.logo.react:hover {
-  filter: drop-shadow(0 0 2em #61dafbaa);
-}
-
-@keyframes logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
-}
 
 @media (prefers-reduced-motion: no-preference) {
   a:nth-of-type(2) .logo {
@@ -33,13 +22,91 @@
   }
 }
 
-.card {
-  padding: 2em;
+/* navbar styling */
+.navbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0.5rem 2rem;
+  background-color: #33AA5E;
+  border-bottom: 1px solid;
+  height: 60px;
 }
 
-.read-the-docs {
-  color: #888;
+.nav-right {
+  display: flex;
+  align-items: center;
+  gap: 30px;
 }
-.auth-container{
-  background: rgb(139, 196, 139);
+
+.nav-links {
+  display: flex;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  gap: 20px;
+}
+
+.nav-links a, button.signout-btn {
+  text-decoration: none;
+  color: #333;
+  font-weight: 500;
+  background: none;
+  border: none;
+  cursor: pointer;
+  font-size: 1rem;
+}
+
+.nav-logo {
+  height: 40px;
+  width: auto;
+  display: block;
+}
+
+/* classes for landing page */
+.landing-container {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 40px;
+  padding: 40px;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.landing-left {
+  flex: 1;
+}
+
+.money-mentor-img {
+  width: 100%;
+  max-width: 400px;
+  height: auto;
+  object-fit: contain;
+  display: block;
+  margin: 0 auto;
+}
+
+.landing-right {
+  flex: 1;
+  display: flex;
+  justify-content: center;
+}
+
+.landing-hero-img {
+  width: 100%;
+  max-width: 500px;
+  height: auto;
+  box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+}
+
+.testimonials-container {
+    width: 80%;
+    max-width: 1000px;
+    margin: 40px auto;
+    overflow: hidden; 
+    position: relative;
+    padding: 10px 0;
+    white-space: nowrap;
+    border-radius: 50px;
 }

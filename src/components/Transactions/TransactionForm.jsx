@@ -1,9 +1,14 @@
-import { useParams } from "react-router";
+import { useParams, useNavigate } from "react-router";
 import { useEffect, useState } from "react";
 import * as transactionService from "../../services/transactionService";
 
-const TransactionForm = ({ categories }) => {
+const TransactionForm = ({
+  categories,
+  handleAddTransaction,
+  handleUpdateTransaction,
+}) => {
   const { transactionId } = useParams();
+  const navigate = useNavigate();
 
   const [formData, setFormData] = useState({
     amount: "",
@@ -52,6 +57,16 @@ const TransactionForm = ({ categories }) => {
     setFormData({ ...formData, [evt.target.name]: evt.target.value });
   };
 
+  const handleSubmit = (evt) => {
+    evt.preventDefault();
+
+    if (transactionId) {
+      handleUpdateTransaction(transactionId, formData);
+    } else {
+      handleAddTransaction(formData);
+    }
+  };
+
   const setType = (nextType) => {
     // When switching type, reset categoryId to avoid mismatched categories
     setFormData((prev) => ({ ...prev, type: nextType, categoryId: "" }));
@@ -62,14 +77,16 @@ const TransactionForm = ({ categories }) => {
     <main>
       <h1>{transactionId ? "Edit Transaction" : "New Transaction"}</h1>
 
-      <form>
+      <form onSubmit={handleSubmit}>
         <label htmlFor="amount-input">Amount</label>
         <input
+          required
           id="amount-input"
           name="amount"
           type="number"
           value={formData.amount}
           onChange={handleChange}
+          step="0.01"
         />
 
         <label htmlFor="description-input">Description</label>
@@ -83,6 +100,7 @@ const TransactionForm = ({ categories }) => {
 
         <label htmlFor="date-input">Date</label>
         <input
+          required
           id="date-input"
           name="date"
           type="date"
@@ -113,6 +131,7 @@ const TransactionForm = ({ categories }) => {
 
         <label htmlFor="categoryId-input">Category</label>
         <select
+          required
           id="categoryId-input"
           name="categoryId"
           value={formData.categoryId}
@@ -135,6 +154,17 @@ const TransactionForm = ({ categories }) => {
           value={formData.note}
           onChange={handleChange}
         />
+        <button type="submit">Save</button>
+        <button
+          type="button"
+          onClick={() =>
+            transactionId
+              ? navigate(`/transactions/${transactionId}`)
+              : navigate("/transactions")
+          }
+        >
+          Cancel
+        </button>
       </form>
     </main>
   );

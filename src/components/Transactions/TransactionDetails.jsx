@@ -2,7 +2,7 @@ import { useParams, Link, useNavigate } from "react-router";
 import { useEffect, useState } from "react";
 import * as transactionService from "../../services/transactionService";
 
-const TransactionDetails = ({ categories }) => {
+const TransactionDetails = ({ categories, handleDeleteTransaction }) => {
   const navigate = useNavigate();
   const { transactionId } = useParams();
   const [transaction, setTransaction] = useState(null);
@@ -43,6 +43,15 @@ const TransactionDetails = ({ categories }) => {
 
       <section>
         <Link to={`/transactions/${transactionId}/edit`}>Edit</Link>{" "}
+        <button
+          onClick={() => {
+            if (window.confirm("Delete this transaction?")) {
+              handleDeleteTransaction(transactionId);
+            }
+          }}
+        >
+          Delete
+        </button>
         <button onClick={() => navigate("/transactions")}>Back</button>
       </section>
     </main>
