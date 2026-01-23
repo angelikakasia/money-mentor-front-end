@@ -8,27 +8,33 @@ const NavBar = () => {
         setUser(null)
     }
     return (
-        <nav>
+        <nav class='navbar'>
             {user ? (
-                <ul>
-                    <li>Welcome, {user.username}</li>
-                    <li>
-                        <Link to='/'>Dashboard</Link>
-                    </li>
-                    <li>
-                        <Link to='/transactions'>Transactions</Link>
-                    </li>
-                    <li>
-                        <Link to="/summary">Monthly Summary</Link>
-                    </li>
-                    <li>
-                        <Link to='/' onClick={handleSignOut}>
-                            Sign out
-                        </Link>
-                    </li>
-                </ul>
+                <>
+                <div className='nav-left'>
+                    <Link to='/'>
+                        <img src="src/assets/favicon-512.png" alt="money-mentor-logo" className='nav-logo'/>
+                    </Link>    
+                </div>
+                <div className='nav-right'>
+                    <ul className='nav-links'>
+                        <li>
+                            <Link to='/'>Home</Link>
+                        </li>
+                        <li>
+                            <Link to='/transactions'>Transactions</Link>
+                        </li>
+                        <li>
+                            <Link to="/summary">Monthly Summary</Link>
+                        </li>
+                        <li>
+                            <button onClick={handleSignOut} className="signout-btn">Sign Out</button>
+                        </li>
+                    </ul>
+                </div>
+                </>
             ) : (
-                <ul>
+                <ul className='nav-links'>
                     <li>
                         <Link to='/'>Home</Link>
                     </li>
