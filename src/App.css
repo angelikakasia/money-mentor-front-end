@@ -110,3 +110,44 @@ body, html {
     white-space: nowrap;
     border-radius: 50px;
 }
+
+.ticker-track {
+    display: flex;
+    width: max-content;
+    white-space: nowrap;
+    animation: marquee 30s linear infinite; 
+}
+
+.review-item {
+    display: inline-block;
+    padding: 0 40px;
+    font-size: 0.9rem;
+    color: #636977;
+    font-style: italic;
+}
+
+/* This creates the infinite movement */
+@keyframes marquee {
+    from { transform: translateX(0); }
+    to { transform: translateX(-50%); }
+}
+
+/* Pause the scroll when a user hovers over a review */
+.testimonials-container:hover .ticker-track {
+    animation-play-state: paused;
+}
+
+/* classes for dashboard */
+.main-content-container {
+  max-width: 1000px; 
+  margin: 0 auto;    
+  padding: 20px;
+}
+
+.transactions-list {
+  list-style: none;
+}
+.transactions-chart {
+  margin: 40px auto;
+  max-width: 800px; 
+}
