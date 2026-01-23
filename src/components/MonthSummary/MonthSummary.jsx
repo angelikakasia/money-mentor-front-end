@@ -113,7 +113,7 @@ const MonthlySummary = () => {
                             <div className="transaction-desc">{transaction.description}</div>
                             {/* date & category */}
                             <div className="transaction-meta"> 
-                                {new Date(transaction.date).toLocaleDateString()} | 
+                                {new Date(transaction.date).toLocaleDateString()} | {''}
                                 {transaction.categoryId?.name}
                             </div>
                         </div>
