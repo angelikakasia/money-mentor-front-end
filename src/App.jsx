@@ -80,10 +80,6 @@ const App = () => {
     if (user) {
       fetchAllCategories();
       fetchAllTransactions();
-    } else {
-      // Clear state on sign out (prevents showing stale private data)
-      setCategories([]);
-      setTransactions([]);
     }
   }, [user]);
 

@@ -100,7 +100,6 @@ const MonthlySummary = () => {
                 <ul className="transactions-list">
                     {filteredTransactions.map(transaction => {
                         const isIncome = transaction.categoryId?.type === 'Income';
-                        const symbol = isIncome ? '+' : '-';
 
                         return (
                       <li key={transaction._id} className="transaction-card">
@@ -119,6 +118,20 @@ const MonthlySummary = () => {
                         {/* amount */} 
                         {" "}{symbol}${transaction.amount}
                       </li>  
+                        <div className="transaction-details">
+                            {/* description */}
+                            <div className="transaction-desc">{transaction.description}</div>
+                            {/* date & category */}
+                            <div className="transaction-meta"> 
+                                {new Date(transaction.date).toLocaleDateString()} | 
+                                {transaction.categoryId?.name}
+                            </div>
+                        </div>
+                        {/* amount */}
+                        <div className={`transaction-amount ${isIncome} ? 'amount-income' : 'amount-expense'}`}>
+                            {isIncome ? '+' : '-'}${transaction.amount.toFixed(2)}
+                        </div>
+                      </li> 
                     );
                 })}
                 </ul>
