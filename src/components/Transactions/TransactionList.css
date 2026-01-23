@@ -1,0 +1,42 @@
+.transactions-page {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.transactions-actions {
+  display: flex;
+  justify-content: center;
+  margin: 16px 0;
+}
+
+.transaction-link {
+  text-decoration: none;
+  color: inherit;
+}
+
+.transactions-list {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.transaction-card {
+  border: 1px solid #ddd;
+  border-radius: 12px;
+  padding: 12px;
+}
+
+.transaction-amount {
+  margin: 0;
+}
+
+.transaction-meta {
+  margin: 4px 0 0;
+  opacity: 0.85;
+}
+
+.transaction-desc {
+  margin: 10px 0 0;
+  opacity: 0.9;
+}
