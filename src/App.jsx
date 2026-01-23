@@ -27,6 +27,14 @@ const App = () => {
   const navigate = useNavigate();
   const [transactions, setTransactions] = useState([]);
 
+  const handleAddTransaction = async (transactionFormData) => {
+    const newTransaction = await transactionService.create(transactionFormData);
+
+    setTransactions((prev) => [newTransaction, ...prev]);
+
+    navigate("/transactions");
+  };
+
   const handleUpdateTransaction = async (
     transactionId,
     transactionFormData
@@ -88,6 +96,16 @@ const App = () => {
             <Route
               path="/transactions/:transactionId"
               element={<TransactionDetails categories={categories} />}
+            />
+            <Route
+              path="/transactions/new"
+              element={
+                <TransactionForm
+                  categories={categories}
+                  handleAddTransaction={handleAddTransaction}
+                  handleUpdateTransaction={handleUpdateTransaction}
+                />
+              }
             />
             <Route
               path="/transactions/:transactionId/edit"

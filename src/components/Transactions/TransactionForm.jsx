@@ -2,7 +2,11 @@ import { useParams } from "react-router";
 import { useEffect, useState } from "react";
 import * as transactionService from "../../services/transactionService";
 
-const TransactionForm = ({ categories, handleUpdateTransaction }) => {
+const TransactionForm = ({
+  categories,
+  handleAddTransaction,
+  handleUpdateTransaction,
+}) => {
   const { transactionId } = useParams();
 
   const [formData, setFormData] = useState({
@@ -55,9 +59,10 @@ const TransactionForm = ({ categories, handleUpdateTransaction }) => {
   const handleSubmit = (evt) => {
     evt.preventDefault();
 
-    // In this commit, we're only wiring EDIT (transactionId exists)
     if (transactionId) {
       handleUpdateTransaction(transactionId, formData);
+    } else {
+      handleAddTransaction(formData);
     }
   };
 

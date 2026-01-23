@@ -11,6 +11,23 @@ const index = async () => {
   }
 };
 
+// POST /transactions - create a transaction for the current user
+const create = async (transactionFormData) => {
+  try {
+    const res = await fetch(BASE_URL, {
+      method: "POST",
+      headers: {
+        Authorization: `Bearer ${localStorage.getItem("token")}`,
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(transactionFormData),
+    });
+    return res.json();
+  } catch (error) {
+    console.log(error);
+  }
+};
+
 // GET /recent -- summary/recent transactions
 const getRecent = async () => {
   // debugging
@@ -74,4 +91,4 @@ const update = async (transactionId, transactionFormData) => {
   }
 };
 
-export { index, getRecent, getMonthlySummary, show, update };
+export { index, create, getRecent, getMonthlySummary, show, update };
