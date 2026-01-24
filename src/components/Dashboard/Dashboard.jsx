@@ -1,5 +1,5 @@
 import { useContext, useEffect, useState } from 'react';
-import { Link } from 'react-router-dom';
+import { Link } from 'react-router-dom'; 
 import { UserContext } from '../../contexts/UserContext';
 // import getRecent for quick summary view of last 5 transactions/current balance
 import * as transactionService from '../../services/transactionService';
@@ -79,14 +79,14 @@ const Dashboard = () => {
             {/* recent activity */}
             <section className='recent-activity-section'>
                 <h2>Here are your recent money moves.</h2>
-                <ul className='transactions-list'>
+                <ul className='dashboard-transactions-list'>
                     {recentMoves.map((transaction) => {
                         const isIncomeItem = transaction.categoryId?.type === 'Income';
                         const symbol = isIncomeItem ? '+' : '-';
 
                         return (
                         <Link to={`/transactions/${transaction._id}`} key={transaction._id} className="transaction-link">
-                        <li key={transaction._id}>
+                        <li className='transaction-line'key={transaction._id}>
                             {transaction.description}: {' '}
                             <div className={`transaction-amount ${isIncomeItem ? 'amount-income' : 'amount-expense'}`}>
                                 {symbol}{new Intl.NumberFormat('en-US', { style: 'currency', currency: 'USD' }).format(transaction.amount)}

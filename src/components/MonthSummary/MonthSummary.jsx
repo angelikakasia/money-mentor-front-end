@@ -36,7 +36,8 @@ const MonthlySummary = () => {
         const chartContainer = document.querySelector('.transactions-chart');
         if (chartContainer) observer.observe(chartContainer);
 
-        return () => observer.disconnect;
+        return () => { observer.disconnect();
+        };
     }, [loading, allTransactions]);
 
     // handle data loading
