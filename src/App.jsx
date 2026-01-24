@@ -20,7 +20,7 @@ import MonthlySummary from "./components/MonthSummary/MonthSummary.jsx";
 
 const App = () => {
   const { user } = useContext(UserContext);
-
+  console.log(user)
   // Needed for TransactionList
   const [categories, setCategories] = useState([]);
   const navigate = useNavigate();
@@ -30,7 +30,7 @@ const App = () => {
     const newTransaction = await transactionService.create(transactionFormData);
 
     setTransactions((prev) => [newTransaction, ...prev]);
-
+    // setUser(newTransaction.user);
     navigate("/transactions");
   };
 
