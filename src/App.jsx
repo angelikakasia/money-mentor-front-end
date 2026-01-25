@@ -7,11 +7,13 @@ import SignUpForm from "./components/SignUpForm/SignUpForm.jsx";
 import SignInForm from "./components/SignInForm/SignInForm.jsx";
 import Landing from "./components/Landing/Landing.jsx";
 import Dashboard from "./components/Dashboard/Dashboard.jsx";
+import Mentor from "./components/Mentor/Mentor.jsx";
 
 import TransactionList from "./components/Transactions/TransactionList.jsx";
 import TransactionDetails from "./components/Transactions/TransactionDetails.jsx";
 import TransactionForm from "./components/Transactions/TransactionForm.jsx";
 
+import * as mentorService from "./services/mentorService.js"
 import * as categoryService from "./services/categoryService.js";
 import * as transactionService from "./services/transactionService.js";
 
@@ -20,11 +22,13 @@ import MonthlySummary from "./components/MonthSummary/MonthSummary.jsx";
 
 const App = () => {
   const { user } = useContext(UserContext);
-  console.log(user)
+  console.log(user);
   // Needed for TransactionList
   const [categories, setCategories] = useState([]);
   const navigate = useNavigate();
   const [transactions, setTransactions] = useState([]);
+  const [mentors, setMentors] = useState([]);
+
 
   const handleAddTransaction = async (transactionFormData) => {
     const newTransaction = await transactionService.create(transactionFormData);
@@ -36,30 +40,29 @@ const App = () => {
 
   const handleUpdateTransaction = async (
     transactionId,
-    transactionFormData
+    transactionFormData,
   ) => {
     const updatedTransaction = await transactionService.update(
       transactionId,
-      transactionFormData
+      transactionFormData,
     );
 
     setTransactions(
       transactions.map((t) =>
-        t._id === transactionId ? updatedTransaction : t
-      )
+        t._id === transactionId ? updatedTransaction : t,
+      ),
     );
 
     navigate(`/transactions/${transactionId}`);
   };
 
   const handleDeleteTransaction = async (transactionId) => {
-    const deletedTransaction = await transactionService.deleteTransaction(
-      transactionId
-    );
+    const deletedTransaction =
+      await transactionService.deleteTransaction(transactionId);
 
     // Remove deleted transaction from state
     setTransactions((prev) =>
-      prev.filter((t) => t._id !== deletedTransaction._id)
+      prev.filter((t) => t._id !== deletedTransaction._id),
     );
 
     navigate("/transactions");
@@ -76,9 +79,15 @@ const App = () => {
       setTransactions(transactionsData);
     };
 
+    const fetchAllMentors = async () => {
+      const mentorsData = await mentorService.getMentorResponse();
+      setMentors(mentorsData)
+    };
+
     if (user) {
       fetchAllCategories();
       fetchAllTransactions();
+      fetchAllMentors();
     }
   }, [user]);
 
@@ -129,6 +138,13 @@ const App = () => {
                 />
               }
             />
+            <Route path="/mentors" 
+            element={
+              <Mentor
+              mentors={mentors} 
+              
+              />} 
+              />,
           </>
         ) : (
           <>
