@@ -1,4 +1,6 @@
-import { useState, useEffect } from "react";
+import './MonthlySummary.css';
+import { useState, useEffect, useContext} from "react";
+import { UserContext } from "../../contexts/UserContext";
 import { getMonthlySummary } from "../../services/transactionService";
 import { Link } from 'react-router-dom';
 import { 
@@ -7,6 +9,7 @@ import {
 } from 'recharts';
 
 const MonthlySummary = () => {
+    const { user, setUser } = useContext(UserContext);
     const [allTransactions, setAllTransactions] = useState([]);
     // filter for all, income or expense
     const [filter, setFilter] = useState('all');
@@ -40,6 +43,9 @@ const MonthlySummary = () => {
         };
     }, [loading, allTransactions]);
 
+    //if user is not logged in, handle the null state
+    if (!user) return <p>Please log in to view your summary.</p>;
+
     // handle data loading
     if (loading) return <main><p>Loading your summary...</p></main>;
 
@@ -47,10 +53,10 @@ const MonthlySummary = () => {
     if (allTransactions.length === 0) {
     return (
       <main>
-        <h1>Monthly Summary</h1>
+        <h1>Your Monthly Summary</h1>
         <p>No transactions found for this month yet!</p>
         <Link to="/">
-            <button>Return to Dashboard</button>
+            <button type='button'>Return to Dashboard</button>
         </Link>
       </main>
     );
@@ -87,16 +93,16 @@ const MonthlySummary = () => {
 
     return (
         <>
-            <main className="main-content-container">
-                <h1>Monthly Summary</h1>
-                <section className="filter-transactions">
+            <main className="month-content-container">
+                <h1>{user.username}'s Monthly Summary</h1>
+                <section className="monthly-filter-transactions">
                     <div className="filter-btns">
-                        <button onClick={() => setFilter('all')}>All Transactions</button>
-                        <button onClick={() => setFilter('Income')}>Income</button>
-                        <button onClick={() => setFilter('Expense')}>Expenses</button>
+                        <button type='button' onClick={() => setFilter('all')}>All Transactions</button>
+                        <button type='button' onClick={() => setFilter('Income')}>Income</button>
+                        <button type='button' onClick={() => setFilter('Expense')}>Expenses</button>
                     </div>
                 
-                <h3>Total: ${total.toFixed(2)}</h3>
+                <h3 className='month-total'>Total: ${total.toFixed(2)}</h3>
 
                 <ul className="transactions-list">
                     {filteredTransactions.map(transaction => {
@@ -131,8 +137,7 @@ const MonthlySummary = () => {
                 <section className="transactions-chart">
                     <h2>{filter === 'all' ? 'Income vs Expenses' : `${filter} Breakdown`}</h2>
                     <div style={{ width: '100%', height: '350px', marginBottom: '60px'}}>
-                    {/* Only render the chart if mounted and we have data */}
-                    {containerWidth > 0 && ( 
+                    {/* Only render the chart if mounted and we have data */} 
                     <ResponsiveContainer width='100%' height='100%' minWidth={0}> 
                         <BarChart 
                             data={filter === 'all' ? chartData : dynamicChartData} 
@@ -149,12 +154,13 @@ const MonthlySummary = () => {
                             <Bar dataKey='amount' radius={[4, 4, 0, 0]} />
                         </BarChart>
                     </ResponsiveContainer>
-                    )}
                     </div>
                 </section>
-                <Link to="/">
-                    <button type='button'>Return to Dashboard</button>
-                </Link>
+                <div className='summary-actions'>
+                    <Link to="/">
+                        <button className='back-btn' type='button'>Return to Dashboard</button>
+                    </Link>
+                </div>
             </main>
         </>
     );

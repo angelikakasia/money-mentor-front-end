@@ -1,0 +1,118 @@
+/* monthly summary styles */
+
+.month-content-container {
+  max-width: 1000px; 
+  margin: 0 auto;    
+  padding: 20px;
+}
+
+.monthly-filter-transactions {
+    display: flex;
+    flex-direction: column;
+}
+
+.filter-btns {
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+}
+
+.transactions-list {
+    display: flex;
+    flex-direction: column;
+    list-style: none;
+    padding: 0;
+    margin: 20px 0;
+    background: #ffffff;
+    border-radius: 12px;
+    overflow: hidden;
+    margin: 20px auto; 
+    padding: 0;
+    margin-bottom: 30px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+    width: 100%;           
+    max-width: 600px;     
+    min-width: 300px;
+}
+
+.transaction-card {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 16px 20px;
+    box-sizing: border-box;
+    transition: background 0.2s;
+}
+
+.transaction-card:hover {
+    border: 1px solid #000000;
+    background-color: #f9f9f9;
+    cursor: pointer;
+}
+
+.transaction-info {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+}
+
+.transaction-icon {
+  width: 50px;
+  height: 50px;
+  border-radius: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.2rem;
+}
+
+.transaction-details {
+  display: flex;
+  flex-direction: column;
+  text-align: left; 
+  color: #636977;
+}
+
+.transaction-desc {
+  text-align: center;
+  font-weight: 600;
+  color: #000000;
+  font-size: 1rem;
+}
+
+.transactions-chart {
+  margin: 30px auto;
+  max-width: 800px;
+  width: 100%;
+  height: 450px;
+  min-height: 300px;
+  padding: 20px;
+  border-radius: 12px; 
+}
+
+.transaction-meta {
+  font-size: 0.85rem;
+  color: #636977;
+  margin-top: 2px;
+}
+
+.transaction-amount {
+  font-weight: 700;
+  font-size: 1.05rem;
+}
+
+.amount-income {
+  color: #33AA5E;
+}
+
+.amount-expense {
+  color: #CB4F4C;
+}
+
+.summary-actions {
+  display: flex;
+  justify-content: center;
+  margin-top: 50px; 
+  clear: both; 
+}
