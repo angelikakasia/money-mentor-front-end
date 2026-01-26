@@ -1,51 +1,34 @@
-// import { Link } from "react-router-dom";
-
-// const Mentor = ({ mentors }) => {
-//   console.log(mentors);
-//   if (!mentors) return <h1>Loading</h1>;
-//   return (
-//     <>
-//       <h1>Level: {mentors.level} </h1>
-//       <p>Name: {mentors.levelName}</p>
-//       <p>Points: {mentors.points}</p>
-//       <p>Mentor Says: {mentors.mentorMessage}</p>
-//       {mentors.recentTransactions ? (
-//         <div>
-//           <p>Recent Transactions:</p>
-//           {mentors?.recentTransactions.map((t) => {
-            
-//             return (
-//               <div key={t._id}>
-//                 <p>{t.amount}</p>
-            
-//                 <p>{t.description}</p>
-//                 <p>Type: {t.type}</p>
-//                  <p>Created: {t.date.slice(0, 10)}</p>
-//                 <p>Updated: {t.updatedAt.slice(0, 10)}</p>
-//               </div>
-//             );
-//           })}
-//         </div>
-//       ) : (
-//         <p>No Transactions</p>
-//       )}
-//     </>
-//   );
-// };
-
-// export default Mentor;
 import { Link } from "react-router-dom";
+import { useContext, useEffect } from "react";
+import { UserContext } from "../../contexts/UserContext";
+import * as userService from "../../services/userService";
 
 const Mentor = ({ mentors }) => {
-  if (!mentors) return <h1>Loading</h1>;
+  const { user, setUser } = useContext(UserContext);
+  useEffect(() => {
+    const fetchUserData = async () => {
+      const updatedUser = await userService.index(user._id);
+      setUser(updatedUser);
+    };
+    fetchUserData();
+  }, []);
 
+  if (!mentors) return <h1>Loading</h1>;
+//   const getLevelFromPoints = () => {
+//   if (user.points >= 5000) return { level: 5, name: "Money Mentor" };
+//   if (user.points >= 3000) return { level: 4, name: "Strategist" };
+//   if (user.points >= 1500) return { level: 3, name: "Builder" };
+//   if (user.points >= 400) return { level: 2, name: "Saver" };
+//   return { level: 1, name: "Beginner" };
+// };
   return (
     <main className="mentor-container">
       {/* Header */}
       <div className="mentor-header">
-        <h1 className="mentor-level">Level {mentors.level}</h1>
+        <h1>Hello,{user.username}</h1>
+        <p className="mentor-level">Level {mentors.level}</p>
         <p className="mentor-level-name">{mentors.levelName}</p>
-        <p className="mentor-points">Points: {mentors.points}</p>
+        <p className="mentor-points">Points: {user.points}</p>
       </div>
 
       {/* Mentor message */}
@@ -61,7 +44,14 @@ const Mentor = ({ mentors }) => {
           mentors.recentTransactions.map((t) => (
             <div key={t._id} className="mentor-transaction-card">
               <div className="mentor-transaction-main">
-                <span className="mentor-amount">${t.amount}</span>
+                <span
+                  className="mentor-amount"
+                  style={{
+                    color: t.type === "Expense" ? "#CB4F4C" : "#33AA5E",
+                  }}
+                >
+                  ${t.amount}
+                </span>
                 <span className="mentor-type">{t.type}</span>
               </div>
 
