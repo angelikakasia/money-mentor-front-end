@@ -1,23 +1,96 @@
-# React + Vite
+# Money Mentor – Frontend
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
 
-Currently, two official plugins are available:
+![money-mentor](image.png)
+![money-mentor](image.png)
+![money-mentor](image.png)
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) (or [oxc](https://oxc.rs) when used in [rolldown-vite](https://vite.dev/guide/rolldown)) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
 
-## React Compiler
+Money Mentor is a react-based CRUD application for tracking personal finances and building better money habits through visibility and motivation.
 
-The React Compiler is currently not compatible with SWC. See [this issue](https://github.com/vitejs/vite-plugin-react/issues/428) for tracking the progress.
+Built with React, React Router, and a custom REST API.
 
-## Expanding the ESLint configuration
+---
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+Money Mentor helps users track income and expenses, view monthly summaries, and stay motivated with a points-based mentor system.
+
+## Tech Stack
+
+- React (Vite)
+- React Router
+- JavaScript
+- CSS (global App.css)
+- REST API
+- Netlify (deployment)
+
+---
+
+## Features
+
+- User authentication (signup, login, logout)
+- Protected routes for authenticated users
+- Create, edit, and delete income and expense transactions
+- View transactions by month
+- Monthly summary with totals and charts
+- Mentor system with motivational messages
+- Points and level progression based on user activity
+
+---
+
+## Data Models (Backend)
+
+### User
+- username
+- password
+- points
+
+### Transaction
+- amount
+- type (Income / Expense)
+- category
+- date
+- user
+
+### Category
+- name
+- type
+
+---
+
+## Mentor System (Stretch Goal)
+
+- Mentor provides personalized motivational feedback
+- Users earn points for positive financial actions
+- Levels unlock based on total points
+- Users can see points remaining to the next level
+
+---
+
+## Routes (Frontend)
+
+- / → Landing / Dashboard
+- /sign-up
+- /sign-in
+- /transactions
+- /transactions/new
+- /transactions/:id
+- /summary
+- /mentors
+
+---
+
+## Notes
+
+- Frontend built with React and Context API
+- Authorization enforced by backend
+- Users can only modify their own data
+
 
 ## Development Team
 
 This project was built collaboratively by:
+- **Angelika** - | [GitHub](https://github.com/angelikakasia?tab=repositories) | [LinkedIn](https://www.linkedin.com/in/angszy/) |
 
-- **Gabriel Restrepo** — [LinkedIn](https://www.linkedin.com/in/gabriel-restrepo-acosta/)
-- **Sarah Smith** — [LinkedIn](https://www.linkedin.com/in/sarahsmithdeveloper/)
+- **Gabriel Restrepo** - | [GitHub](https://github.com/gabogara) | [LinkedIn](https://www.linkedin.com/in/gabriel-restrepo-acosta/) |
+
+- **Sarah Smith** - |[GitHub](https://github.com/sarahlibx) | [LinkedIn](https://www.linkedin.com/in/sarahsmithdeveloper/) |
