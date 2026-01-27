@@ -6,6 +6,7 @@ import { UserContext } from "../../contexts/UserContext";
 // import getRecent for quick summary view of last 5 transactions/current balance
 import * as transactionService from "../../services/transactionService";
 import * as userService from "../../services/userService";
+import { generateMonthOptions } from "../../utils/dateUtils";
 
 const Dashboard = () => {
   const { user, setUser } = useContext(UserContext);
@@ -44,22 +45,6 @@ const Dashboard = () => {
 
         fetchDashboardData();
   }, [user?._id]);
-
-const generateMonthOptions = () => {
-    const options = [];
-    const date = new Date();
-
-    // always calculates next 12 months
-    for(let i = 0; i < 12; i++) {
-        const monthValue = date.toISOString().slice(0, 7);
-        const monthLabel = date.toLocaleString('default', { month: 'long', year: 'numeric'});
-
-        options.push({ value: monthValue, label: monthLabel });
-
-        date.setMonth(date.getMonth() - 1);
-    }
-    return options;
-};
 
 const monthlyData = allTransactions.filter((transactions) =>
     transactions.date.startsWith(selectedMonth),
