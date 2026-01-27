@@ -79,7 +79,7 @@ const TransactionList = ({ transactions, categories }) => {
             return (
               <Col key={t._id} xs={12}>
                 <Link to={`/transactions/${t._id}`} state={{ from }}>
-                  <Card className="shadow-sm">
+                  <Card className="shadow-sm tx-card">
                     <Card.Body>
                       <div className="d-flex align-items-center">
                         <div className="tx-date me-3 text-muted small">

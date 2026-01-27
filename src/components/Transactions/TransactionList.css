@@ -8,11 +8,22 @@
 }
 
 .tx-date {
-  width: 72px; 
+  width: 72px;
   flex: 0 0 72px;
 }
 
 .tx-amount {
-  width: 120px; 
+  width: 120px;
   flex: 0 0 120px;
+}
+
+.tx-card {
+  cursor: pointer;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.tx-card:hover {
+  transform: translateY(-2px);
+  border-color: #35ab5f;
+  box-shadow: 0 0.75rem 1.5rem rgba(0, 0, 0, 0.12);
 }
