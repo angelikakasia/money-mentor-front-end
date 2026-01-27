@@ -1,3 +1,4 @@
+import { Container, Row, Col, Stack, Form, Button, Card } from 'react-bootstrap';
 import './Dashboard.css';
 import { useContext, useEffect, useState } from "react";
 import { Link } from "react-router-dom";
@@ -86,72 +87,88 @@ const monthlyData = allTransactions.filter((transactions) =>
   );
 }
      return (
-        <main className='dash-content-container'>
-            <>
-            <h1>Welcome to your dashboard, {user.username}!</h1>
+        <Container className="py-4 mt-3"> {/* py-4 adds the vertical breathing room you lost */}
+            <Row className="mb-4">
+                <Col>
+                    <h1 className="display-6 fw-bold">Welcome, {user.username}!</h1>
+                </Col>
+            </Row>
+
             {/* monthly stats at a glance */}
-            <section className='monthly-stats-section'>
-                <div className='stats-header'>
-                    <select id='month-dropdown' className='month-dropdown' value={selectedMonth} onChange={(e) => setSelectedMonth(e.target.value)}
+            <Card className="shadow-sm border-0 mb-5">
+                <Card.Body className="p-4">
+                    <div className="d-flex justify-content-between align-items-center mb-4">
+                        <Form.Select 
+                            id='month-dropdown' 
+                            className='month-dropdown w-auto' 
+                            value={selectedMonth} 
+                            onChange={(e) => setSelectedMonth(e.target.value)}
                         >
                             {generateMonthOptions().map((opt) => (
                                 <option key={opt.value} value={opt.value}>
                                     {opt.label}
                                 </option>
                             ))}
-                    </select>
-                </div>
-                <div className='stats-grid'>
-                    <div className="stat-item">
-                        <span className="label">Points</span>
-                        <span className="value points">{user.points}</span>
+                        </Form.Select>
                     </div>
-                    <div className='stat-item'>
-                        <span className='label'>Income</span>
-                        <span className='value income'>${income.toFixed(2)}</span>
-                    </div>
-                    <div className='stat-item'>
-                        <span className='label'>Expenses</span>
-                        <span className='value expense'>${expenses.toFixed(2)}</span>
-                    </div>
-                    <div className='stat-item'>
-                        <span className='label'>Net Savings</span>
-                        <span className={`value ${net >= 0 ? 'net-positive' : 'net-negative'}`}>${net.toFixed(2)}</span>
-                    </div>
-                </div>
-            </section>
-            {/* recent activity */}
-            <section className='recent-activity-section'>
-                <h2>Here are your recent money moves.</h2>
-                <ul className='dashboard-transactions-list'>
+
+                <Row className='stats-grid text-center g-4'>
+                    <Col xs={6} md = {3} className="stat-item">
+                        <div className="label">Points</div>
+                        <div className="value points">{user.points}</div>
+                    </Col>
+                    <Col xs={6} md={3} className='stat-item'>
+                        <div className='label'>Income</div>
+                        <div className='value income'>${income.toFixed(2)}</div>
+                    </Col>
+                    <Col xs={6} md={3} className='stat-item'>
+                        <div className='label'>Expenses</div>
+                        <div className='value expense'>${expenses.toFixed(2)}</div>
+                    </Col>
+                    <Col xs={6} md={3} className='stat-item'>
+                        <div className='label'>Net Savings</div>
+                        <div className={`value ${net >= 0 ? 'net-positive' : 'net-negative'}`}>${net.toFixed(2)}</div>
+                    </Col>
+                </Row>
+            </Card.Body>
+        </Card>
+
+        {/* recent activity */}
+        <Row className='recent-activity-section justify-content-center'>
+            <Col lg={8}>
+                <h2 className='h4 mb-4'>Here are your recent money moves.</h2>
+                <Stack gap={2} className='dashboard-transactions-list mb-4'>
                     {recentMoves.map((transaction) => {
                         const isIncomeItem = transaction.categoryId?.type === 'Income';
                         const symbol = isIncomeItem ? '+' : '-';
 
                         return (
                         <Link to={`/transactions/${transaction._id}`} key={transaction._id} className="transaction-link">
-                        <li className='transaction-line'key={transaction._id}>
-                            {transaction.description}: {' '}
-                            <div className={`transaction-amount ${isIncomeItem ? 'amount-income' : 'amount-expense'}`}>
-                                {symbol}{new Intl.NumberFormat('en-US', { style: 'currency', currency: 'USD' }).format(transaction.amount)}
-                            </div>
-                        </li>
+                            <Card className='transaction-line'key={transaction._id}>
+                                <div className='d-flex justify-content-between align-items-center'>
+                                    <span>{transaction.description}:&nbsp;</span>
+                                   
+                                    <span className={`transaction-amount ${isIncomeItem ? 'amount-income' : 'amount-expense'}`}>
+                                        {symbol}{new Intl.NumberFormat('en-US', { style: 'currency', currency: 'USD' }).format(transaction.amount)}
+                                    </span>
+                                </div>
+                            </Card>
                         </Link>
                     );
-                    
                 })}
-                </ul>
-                <div className="dash-transactions-actions">
+                </Stack>
+
+                <Stack direction='horizontal' gap={3} className="dash-transactions-actions justify-content-center">
                     <Link to ='/transactions'>
                         <button type='button'>All Transactions</button>
                     </Link>
                     <Link to="/transactions/new">
                         <button type="button">+ Add Transaction</button>
                     </Link>
-                </div>
-            </section>
-            </>
-        </main>
+                </Stack>
+                </Col>
+            </Row>
+        </Container>
     );
 };
 

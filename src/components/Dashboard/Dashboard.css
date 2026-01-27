@@ -1,27 +1,13 @@
 /* classes for dashboard */
-.dash-content-container {
-  max-width: 1000px; 
-  margin: 0 auto;    
-  padding: 20px;
-}
-
-/* .stats-card {
-  background: #ffffff;
-  padding: 24px;
-  border-radius: 16px;
-  box-shadow: 0 4px 20px rgba(0,0,0,0.08);
-  margin-bottom: 30px;
-} */
-
 .stats-header {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  margin-bottom: 20px;
 }
 
 .month-dropdown {
-  padding: 8px 20px 8px 15px;
+  padding: 10px 15px;
+  margin-bottom: 20px;
   border-radius: 8px;
   border: 1px solid #ddd;
   font-size: 1rem;
@@ -30,16 +16,9 @@
 }
 
 .stats-grid {
-  display: flex;
-  justify-content: space-around;
   border-top: 1px solid #eee;
   padding: 20px 0;
   border-bottom: 1px solid #eee;
-}
-
-.stat-item {
-  display: flex;
-  flex-direction: column;
 }
 
 .stat-item .label {
@@ -72,7 +51,7 @@
 .dashboard-transactions-list {
   max-width: 300px;
   margin: 0 auto; 
-  padding: 0 0 30px 0;
+  padding: 10px 0 20px 0;
   list-style: none; 
 }
 
@@ -100,8 +79,18 @@
   color: #ffffff;
 }
 
-.dash-transactions-actions {
-    gap: 20px;
-    display: flex;
-    justify-content: center;
+.dash-transactions-actions button {
+  transition: all 0.3s ease;
+  border-radius: 8px;
+  padding: 10px 20px;
+  font-weight: 600;
+  background-color: #33AA5E;
+}
+
+.dash-transactions-actions button:hover {
+  transition: all 0.3s ease;
+  border-radius: 8px;
+  padding: 10px 20px;
+  font-weight: 600;
+  background-color: #000000;
 }
