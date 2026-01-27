@@ -1,8 +1,12 @@
 import { Link, useLocation } from "react-router-dom";
+import { Container, Row, Col, Button, Card, Stack } from "react-bootstrap";
+
 import "./TransactionList.css";
 
 const TransactionList = ({ transactions, categories }) => {
   const location = useLocation();
+  const from = location.pathname + location.search;
+
   const categoryNameById = (categoryId) => {
     if (categoryId && typeof categoryId === "object") return categoryId.name;
     const found = categories.find((c) => c._id === categoryId);
@@ -10,48 +14,78 @@ const TransactionList = ({ transactions, categories }) => {
   };
 
   return (
-    <main className="transactions-page">
-      <h1>Transactions</h1>
+    <Container className="py-4">
+      <Row className="justify-content-center my-4">
+        <Col xs="auto">
+          <h1 className="mb-0">Transactions</h1>
+        </Col>
+      </Row>
 
-      <div className="transactions-actions">
-        <Link
-          to="/transactions/new"
-          state={{ from: location.pathname + location.search }}
-        >
-          <button type="button">+ Add Transaction</button>
-        </Link>
-      </div>
-
-      {!transactions.length && <p>No transactions yet.</p>}
-
-      <div className="transactions-list">
-        {transactions.map((t) => (
-          <Link
-            key={t._id}
-            to={`/transactions/${t._id}`}
-            state={{ from: location.pathname + location.search }}
-            className="transaction-link"
+      {/* Button */}
+      <Row className="justify-content-center my-4">
+        <Col xs="auto">
+          <Button
+            as={Link}
+            to="/transactions/new"
+            state={{ from }}
+            className="btn-moneymentor"
+            type="button"
           >
-            <article className="transaction-card">
-              <header>
-                <h2 className="transaction-amount">
-                  {t.type === "Income" ? "+" : "-"}$
-                  {Number(t.amount).toFixed(2)}
-                </h2>
-                <p className="transaction-meta">
-                  {categoryNameById(t.categoryId)} •{" "}
-                  {new Date(t.date).toLocaleDateString()}
-                </p>
-              </header>
+            + Add Transaction
+          </Button>
+        </Col>
+      </Row>
 
-              <p className="transaction-desc">
-                {t.description || "No description"}
-              </p>
-            </article>
-          </Link>
-        ))}
-      </div>
-    </main>
+      {!transactions.length ? (
+        <p className="text-muted">No transactions yet.</p>
+      ) : (
+        <Row className="g-3">
+          {transactions.map((t) => {
+            const amountClass =
+              t.type === "Income" ? "text-success" : "text-danger";
+
+            return (
+              <Col key={t._id} xs={12}>
+                <Link to={`/transactions/${t._id}`} state={{ from }}>
+                  <Card className="shadow-sm">
+                    <Card.Body>
+                      <div className="d-flex align-items-center">
+                        <div className="tx-date me-3 text-muted small">
+                          {new Date(t.date).toLocaleDateString()}
+                        </div>
+
+                        <div className="flex-grow-1">
+                          <div className="fw-semibold">
+                            {categoryNameById(t.categoryId)}
+                          </div>
+                          <div className="text-muted small">
+                            {t.description || "No description"}
+                          </div>
+                        </div>
+
+                        <div
+                          className={`tx-amount ms-3 text-end fw-semibold ${amountClass}`}
+                        >
+                          {t.type === "Income" ? "+" : "-"}$
+                          {Number(t.amount).toFixed(2)}
+                        </div>
+                      </div>
+                    </Card.Body>
+                  </Card>
+                </Link>
+              </Col>
+            );
+          })}
+        </Row>
+      )}
+      <Row className="justify-content-center mt-4">
+        <Col xs="auto">
+          <Button as={Link} to="/" type="button" className="btn-moneymentor">
+            Return to Dashboard
+          </Button>
+        </Col>
+      </Row>
+    </Container>
   );
 };
 

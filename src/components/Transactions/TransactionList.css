@@ -1,42 +1,18 @@
-.transactions-page {
-  display: flex;
-  flex-direction: column;
-  gap: 16px;
+.btn-moneymentor {
+  background-color: #35ab5f;
+  border-color: #35ab5f;
+}
+.btn-moneymentor:hover {
+  background-color: #2f9a55;
+  border-color: #2f9a55;
 }
 
-.transactions-actions {
-  display: flex;
-  justify-content: center;
-  margin: 16px 0;
+.tx-date {
+  width: 72px; 
+  flex: 0 0 72px;
 }
 
-.transaction-link {
-  text-decoration: none;
-  color: inherit;
-}
-
-.transactions-list {
-  display: flex;
-  flex-direction: column;
-  gap: 12px;
-}
-
-.transaction-card {
-  border: 1px solid #ddd;
-  border-radius: 12px;
-  padding: 12px;
-}
-
-.transaction-amount {
-  margin: 0;
-}
-
-.transaction-meta {
-  margin: 4px 0 0;
-  opacity: 0.85;
-}
-
-.transaction-desc {
-  margin: 10px 0 0;
-  opacity: 0.9;
+.tx-amount {
+  width: 120px; 
+  flex: 0 0 120px;
 }
