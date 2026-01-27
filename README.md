@@ -1,8 +1,16 @@
-# Money Mentor – Frontend
+
+
+
+![money-mentor](im.png)
+
+# Frontend
+
+![money-mentor](image.png)
 
 
 ![money-mentor](image.png)
-![money-mentor](image.png)
+
+
 ![money-mentor](image.png)
 
 
@@ -19,11 +27,37 @@ Money Mentor helps users track income and expenses, view monthly summaries, and 
 - React (Vite)
 - React Router
 - JavaScript
-- CSS (global App.css)
+- CSS
 - REST API
 - Netlify (deployment)
 
 ---
+
+## Getting Started
+
+### Prerequisites
+- Node.js (v18+ recommended)
+- npm
+- Backend API running locally or deployed
+
+### Installation
+1. Clone the frontend repository  
+2. Install dependencies
+ npm i
+3. Create a `.env` file and add the backend API URL  
+VITE_API_URL=your_backend_url_here
+4. Start the development server  
+npm run dev
+
+The app will run at `http://localhost:5173` by default.
+
+### Backend Repository
+The backend REST API for this project can be found here:  
+[Backend](https://github.com/angelikakasia/money-mentor-back-end)
+
+Make sure the backend is running before using the frontend.
+
+----
 
 ## Features
 
@@ -35,25 +69,6 @@ Money Mentor helps users track income and expenses, view monthly summaries, and 
 - Mentor system with motivational messages
 - Points and level progression based on user activity
 
----
-
-## Data Models (Backend)
-
-### User
-- username
-- password
-- points
-
-### Transaction
-- amount
-- type (Income / Expense)
-- category
-- date
-- user
-
-### Category
-- name
-- type
 
 ---
 
@@ -64,18 +79,6 @@ Money Mentor helps users track income and expenses, view monthly summaries, and 
 - Levels unlock based on total points
 - Users can see points remaining to the next level
 
----
-
-## Routes (Frontend)
-
-- / → Landing / Dashboard
-- /sign-up
-- /sign-in
-- /transactions
-- /transactions/new
-- /transactions/:id
-- /summary
-- /mentors
 
 ---
 
