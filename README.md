@@ -44,6 +44,7 @@ Money Mentor helps users track income and expenses, view monthly summaries, and 
 1. Clone the frontend repository  
 2. Install dependencies
  npm i
+ 
 3. Create a `.env` file and add the backend API URL  
 VITE_API_URL=your_backend_url_here
 4. Start the development server  
