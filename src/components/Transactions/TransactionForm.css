@@ -1,0 +1,17 @@
+.form-card {
+  border-radius: 16px;
+}
+
+.type-toggle .btn {
+  min-width: 180px;
+  font-weight: 600;
+}
+.btn-moneymentor-secondary {
+  background-color: #ffffff;
+  border-color: #35ab5f;
+}
+
+.btn-moneymentor-secondary:hover {
+  background-color: #cb4f4c;
+  border-color: #de504e;
+}

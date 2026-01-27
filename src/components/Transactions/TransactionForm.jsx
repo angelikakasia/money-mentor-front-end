@@ -2,6 +2,19 @@ import { useParams, useNavigate, useLocation } from "react-router";
 import { useEffect, useState } from "react";
 import * as transactionService from "../../services/transactionService";
 
+import {
+  Container,
+  Row,
+  Col,
+  Card,
+  Form,
+  Button,
+  ButtonGroup,
+  ToggleButton,
+  Stack,
+} from "react-bootstrap";
+import "./TransactionForm.css";
+
 const TransactionForm = ({
   categories,
   handleAddTransaction,
@@ -76,93 +89,147 @@ const TransactionForm = ({
   };
 
   const filteredCategories = categories.filter((c) => c.type === formData.type);
+
   return (
-    <main>
-      <h1>{transactionId ? "Edit Transaction" : "New Transaction"}</h1>
+    <Container className="py-4">
+      <Row className="justify-content-center">
+        {/*responsive rule: full on mobile, narrower on desktop */}
+        <Col xs={12} md={8} lg={6}>
+          <Card className="shadow-sm form-card">
+            <Card.Body className="p-4">
+              <h1 className="h3 text-center mb-4">
+                {transactionId ? "Edit Transaction" : "New Transaction"}
+              </h1>
 
-      <form onSubmit={handleSubmit}>
-        <label htmlFor="amount-input">Amount</label>
-        <input
-          required
-          id="amount-input"
-          name="amount"
-          type="number"
-          value={formData.amount}
-          onChange={handleChange}
-          step="0.01"
-        />
+              {/* Type toggle (like tabs) */}
+              <Form.Group className="mb-4">
+                <Form.Label className="d-block text-center">Type</Form.Label>
 
-        <label htmlFor="description-input">Description</label>
-        <input
-          id="description-input"
-          name="description"
-          type="text"
-          value={formData.description}
-          onChange={handleChange}
-        />
+                <div className="d-flex justify-content-center">
+                  <ButtonGroup className="type-toggle">
+                    <ToggleButton
+                      id="type-income"
+                      type="radio"
+                      name="type"
+                      value="Income"
+                      checked={formData.type === "Income"}
+                      onChange={() => setType("Income")}
+                      variant={
+                        formData.type === "Income"
+                          ? "success"
+                          : "outline-secondary"
+                      }
+                    >
+                      Income
+                    </ToggleButton>
 
-        <label htmlFor="date-input">Date</label>
-        <input
-          required
-          id="date-input"
-          name="date"
-          type="date"
-          value={formData.date}
-          onChange={handleChange}
-        />
+                    <ToggleButton
+                      id="type-expense"
+                      type="radio"
+                      name="type"
+                      value="Expense"
+                      checked={formData.type === "Expense"}
+                      onChange={() => setType("Expense")}
+                      variant={
+                        formData.type === "Expense"
+                          ? "success"
+                          : "outline-secondary"
+                      }
+                    >
+                      Expense
+                    </ToggleButton>
+                  </ButtonGroup>
+                </div>
+              </Form.Group>
 
-        <label>Type</label>
-        <div>
-          <button
-            type="button"
-            onClick={() => setType("Income")}
-            aria-pressed={formData.type === "Income"}
-            disabled={formData.type === "Income"}
-          >
-            Income
-          </button>
+              <Form onSubmit={handleSubmit}>
+                <Form.Group className="mb-3" controlId="amount-input">
+                  <Form.Label>Amount *</Form.Label>
+                  <Form.Control
+                    required
+                    name="amount"
+                    type="number"
+                    step="0.01"
+                    value={formData.amount}
+                    onChange={handleChange}
+                    placeholder="0.00"
+                  />
+                </Form.Group>
 
-          <button
-            type="button"
-            onClick={() => setType("Expense")}
-            aria-pressed={formData.type === "Expense"}
-            disabled={formData.type === "Expense"}
-          >
-            Expense
-          </button>
-        </div>
+                <Form.Group className="mb-3" controlId="categoryId-input">
+                  <Form.Label>Category *</Form.Label>
+                  <Form.Select
+                    required
+                    name="categoryId"
+                    value={formData.categoryId}
+                    onChange={handleChange}
+                  >
+                    <option value="">Select a category...</option>
+                    {filteredCategories.map((c) => (
+                      <option key={c._id} value={c._id}>
+                        {c.name}
+                      </option>
+                    ))}
+                  </Form.Select>
+                </Form.Group>
 
-        <label htmlFor="categoryId-input">Category</label>
-        <select
-          required
-          id="categoryId-input"
-          name="categoryId"
-          value={formData.categoryId}
-          onChange={handleChange}
-        >
-          <option value="">Select a category</option>
+                <Form.Group className="mb-3" controlId="date-input">
+                  <Form.Label>Date *</Form.Label>
+                  <Form.Control
+                    required
+                    name="date"
+                    type="date"
+                    value={formData.date}
+                    onChange={handleChange}
+                  />
+                </Form.Group>
 
-          {filteredCategories.map((c) => (
-            <option key={c._id} value={c._id}>
-              {c.name}
-            </option>
-          ))}
-        </select>
+                <Form.Group className="mb-3" controlId="description-input">
+                  <Form.Label>Description</Form.Label>
+                  <Form.Control
+                    name="description"
+                    type="text"
+                    value={formData.description}
+                    onChange={handleChange}
+                    placeholder="Optional..."
+                  />
+                </Form.Group>
 
-        <label htmlFor="note-input">Note</label>
-        <input
-          id="note-input"
-          name="note"
-          type="text"
-          value={formData.note}
-          onChange={handleChange}
-        />
-        <button type="submit">Save</button>
-        <button type="button" onClick={() => navigate(from)}>
-          Cancel
-        </button>
-      </form>
-    </main>
+                <Form.Group className="mb-4" controlId="note-input">
+                  <Form.Label>Note</Form.Label>
+                  <Form.Control
+                    name="note"
+                    type="text"
+                    value={formData.note}
+                    onChange={handleChange}
+                    placeholder="Optional..."
+                  />
+                </Form.Group>
+
+                <Stack
+                  direction="horizontal"
+                  gap={3}
+                  className="justify-content-center"
+                >
+                  <Button type="submit" className="btn-moneymentor px-5">
+                    Save
+                  </Button>
+
+                  <Button
+                    type="button"
+                    variant="outline-secondary"
+                    className="btn-moneymentor-secondary px-5"
+                    onClick={() => navigate(from)}
+                  >
+                    Cancel
+                  </Button>
+                </Stack>
+              </Form>
+            </Card.Body>
+          </Card>
+        </Col>
+      </Row>
+    </Container>
   );
 };
 
