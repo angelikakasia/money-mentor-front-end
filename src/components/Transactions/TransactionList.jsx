@@ -1,11 +1,28 @@
+import { useState } from "react";
 import { Link, useLocation } from "react-router-dom";
-import { Container, Row, Col, Button, Card, Stack } from "react-bootstrap";
+import { generateMonthOptions } from "../../utils/dateUtils";
+
+import { Container, Row, Col, Button, Card, Form } from "react-bootstrap";
 
 import "./TransactionList.css";
 
 const TransactionList = ({ transactions, categories }) => {
+  const [selectedMonth, setSelectedMonth] = useState(
+    new Date().toISOString().slice(0, 7)
+  );
+
   const location = useLocation();
   const from = location.pathname + location.search;
+
+  // console.log(
+  //   "date sample:",
+  //   transactions[0]?.date,
+  //   typeof transactions[0]?.date
+  // );
+
+  const filteredTransactions = transactions.filter((t) =>
+    t.date.startsWith(selectedMonth)
+  );
 
   const categoryNameById = (categoryId) => {
     if (categoryId && typeof categoryId === "object") return categoryId.name;
@@ -36,11 +53,26 @@ const TransactionList = ({ transactions, categories }) => {
         </Col>
       </Row>
 
-      {!transactions.length ? (
-        <p className="text-muted">No transactions yet.</p>
+      <Row className="justify-content-center mb-3">
+        <Col xs={12} md={6} lg={4}>
+          <Form.Select
+            value={selectedMonth}
+            onChange={(e) => setSelectedMonth(e.target.value)}
+          >
+            {generateMonthOptions().map((opt) => (
+              <option key={opt.value} value={opt.value}>
+                {opt.label}
+              </option>
+            ))}
+          </Form.Select>
+        </Col>
+      </Row>
+
+      {!filteredTransactions.length ? (
+        <p className="text-muted">No transactions for this month.</p>
       ) : (
         <Row className="g-3">
-          {transactions.map((t) => {
+          {filteredTransactions.map((t) => {
             const amountClass =
               t.type === "Income" ? "text-success" : "text-danger";
 
