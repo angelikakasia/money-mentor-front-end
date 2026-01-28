@@ -1,17 +1,4 @@
 /* classes for landing page */
-.landing-container {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 40px;
-  padding: 40px;
-  max-width: 1200px;
-  margin: 0 auto;
-}
-
-.landing-left {
-  flex: 1;
-}
 
 .money-mentor-img {
   width: 100%;
@@ -22,15 +9,17 @@
   margin: 0 auto;
 }
 
-.landing-right {
-  flex: 1;
-  display: flex;
-  justify-content: center;
+.landing-link {
+  text-decoration: none;
+  font-weight: 600;
+}
+.landing-link:hover {
+  text-decoration: underline;
 }
 
 .landing-hero-img {
   width: 100%;
-  max-width: 500px;
+  max-width: 520px;
   height: auto;
   box-shadow: 0 10px 30px rgba(0,0,0,0.1);
 }
@@ -71,3 +60,26 @@
 .testimonials-container:hover .testimonials-ticker-track {
     animation-play-state: paused;
 }
+
+/* media queries */
+@media (max-width: 768px) {
+  .testimonials-container {
+    width: 95%;
+    margin: 30px auto;
+    padding: 15px 0;
+  }
+  
+  .testimonials-review-item {
+    font-size: 0.9rem;
+    padding: 0 30px;
+  }
+
+  h1.display-4 {
+    font-size: 2.2rem;
+  }
+}
+
+/* .img-fluid {
+  max-height: 400px;
+  object-fit: contain;
+} */
