@@ -98,7 +98,7 @@ const TransactionList = ({ transactions, categories }) => {
                         <div
                           className={`tx-amount ms-3 text-end fw-semibold ${amountClass}`}
                         >
-                          {t.type === "Income" ? "+" : "-"}$
+                          {t.type === "Income" && "+"  }$ 
                           {Number(t.amount).toFixed(2)}
                         </div>
                       </div>

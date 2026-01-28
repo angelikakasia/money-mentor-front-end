@@ -74,7 +74,7 @@ const MonthlySummary = () => {
     const expenseTotal = allTransactions.filter(transaction => transaction.categoryId?.type === 'Expense').reduce((acc, transaction) => acc + transaction.amount, 0);
     const total = filteredTransactions.reduce((acc, transaction) => acc + transaction.amount, 0);
     const netSavings = incomeTotal - expenseTotal;
-
+    console.log(typeof filteredTransactions[0].amount)
     const chartData = [
         { name: 'Income', amount: incomeTotal, fill: '#4CAF50' },
         { name: 'Expenses', amount: expenseTotal, fill: '#F44336' }
