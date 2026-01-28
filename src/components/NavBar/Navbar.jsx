@@ -21,7 +21,7 @@ const NavBar = () => {
           <div className="nav-left">
             <Link to="/" state={{ from: location.pathname + location.search }}>
               <img
-                src="src/assets/Money Mentor (3) 1.svg"
+                src="src/assets/mm-nav.svg"
                 alt="money-mentor-logo"
                 className="nav-logo"
               />

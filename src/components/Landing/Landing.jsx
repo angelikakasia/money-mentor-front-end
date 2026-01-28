@@ -35,7 +35,7 @@ const Landing = () => {
         {/* left side */}  
         <Col lg={6} md={12} className="order-2 order-lg-1 text-center text-lg-start">
           <img 
-            src="src/assets/Money Mentor landing.svg" 
+            src="src/assets/mm-landing.svg" 
             alt="Money Mentor" 
             className="money-mentor-img mb-4 mx-auto mx-lg-0"
             style={{ maxWidth: '300px'}} 
@@ -67,7 +67,7 @@ const Landing = () => {
         {/* RIGHT SIDE */}
         <Col lg={6} md={12} className="order-1 order-lg-2 text-center">
           <img 
-            src="src/assets/right (1).svg" 
+            src="src/assets/landing-right.svg" 
             alt="App at a glance view" 
             className='img-fluid landing-hero-img mb-4 mb-lg-0' 
           />
