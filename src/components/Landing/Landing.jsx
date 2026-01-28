@@ -2,6 +2,8 @@ import { Container, Row, Col, Button, Stack } from 'react-bootstrap';
 import "./Landing.css"; 
 import { Link } from "react-router-dom";
 import NavBar from "../NavBar/Navbar";
+import headerImg from '../../assets/mm-landing.svg';
+import landingImg from '../../assets/landing-right.svg';
 
 {/* reviews for review ticker */}
 const reviews = [
@@ -35,7 +37,7 @@ const Landing = () => {
         {/* left side */}  
         <Col lg={6} md={12} className="order-2 order-lg-1 text-center text-lg-start">
           <img 
-            src="src/assets/mm-landing.svg" 
+            src={headerImg} 
             alt="Money Mentor" 
             className="money-mentor-img mb-4 mx-auto mx-lg-0"
             style={{ maxWidth: '300px'}} 
@@ -67,7 +69,7 @@ const Landing = () => {
         {/* RIGHT SIDE */}
         <Col lg={6} md={12} className="order-1 order-lg-2 text-center">
           <img 
-            src="src/assets/landing-right.svg" 
+            src={landingImg} 
             alt="App at a glance view" 
             className='landing-hero-img mb-4 mb-lg-0' 
           />

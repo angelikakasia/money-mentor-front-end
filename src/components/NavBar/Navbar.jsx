@@ -2,6 +2,7 @@ import './NavBar.css';
 import { useContext } from "react";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import { UserContext } from "../../contexts/UserContext";
+import navImg from '../../assets/mm-nav.svg';
 
 const NavBar = () => {
   const { user, setUser } = useContext(UserContext);
@@ -21,7 +22,7 @@ const NavBar = () => {
           <div className="nav-left">
             <Link to="/" state={{ from: location.pathname + location.search }}>
               <img
-                src="src/assets/mm-nav.svg"
+                src={navImg}
                 alt="money-mentor-logo"
                 className="nav-logo"
               />
