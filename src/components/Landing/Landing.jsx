@@ -58,7 +58,7 @@ const Landing = () => {
                 <button>Get Started</button>
               </Link>
               <div className='text-muted'>
-                <p>Already have an account? <Link className='landing-link' href="/sign-in">Sign in</Link></p> 
+                <p>Already have an account? <Link className='landing-link' to="/sign-in">Sign in</Link></p> 
               </div>
             </Stack>
           </div>
