@@ -20,6 +20,7 @@ const BADGES = [
 
 const Mentor = ({ mentors }) => {
   const { user, setUser } = useContext(UserContext);
+
   useEffect(() => {
     const fetchUserData = async () => {
       const updatedUser = await userService.index(user._id);
@@ -30,71 +31,66 @@ const Mentor = ({ mentors }) => {
 
   if (!mentors || !user) return <h1>Loading</h1>;
 
-  
-  const pointsToNextLevel = () =>{
-      const currentPoints = Number(user?.points) || 0;
-      let nextLevelAt = null; 
-    
-      if (currentPoints  < 400) nextLevelAt = 400;
-      else if (currentPoints < 1500) nextLevelAt = 1500;
-      else if (currentPoints < 3000) nextLevelAt = 3000;
-      else if (currentPoints < 5000) nextLevelAt = 5000;
-      else return 0;
+  const pointsToNextLevel = () => {
+    const currentPoints = Math.max(Number(user?.points) || 0, 0);
 
-    return nextLevelAt - currentPoints;
+    if (currentPoints < 400) return 400 - currentPoints;
+    if (currentPoints < 1500) return 1500 - currentPoints;
+    if (currentPoints < 3000) return 3000 - currentPoints;
+    if (currentPoints < 5000) return 5000 - currentPoints;
+
+    return 0;
   };
-  const currentBadge = BADGES.slice()
-    .reverse()
-    .find((badge) => user.points >= badge.min);
+
+  const currentBadge = ()=>{
+    if(user.points <400) return BADGES[0]
+    else if(user.points>399 && user.points<1500)return BADGES[1]
+    else if(user.points>1499 && user.points<3000)return BADGES[2]
+    else if(user.points>2999 && user.points<5000)return BADGES[3]
+    else if(user.points>4999)return BADGES[4]
+    }
+  
+//   BADGES.slice()
+//     .reverse()
+//     .find((badge) => user.points <= badge.min);
 
   return (
     <main className="mentor-container">
       {/* Header */}
       <div className="mentor-header">
         <h1>Hello, {user.username}</h1>
+
         <h2 className="mentor-level">
           Way to save! You've made it to level {mentors.level}!
         </h2>
-    <h3 className="mentor-level-name">
-  You are now a {mentors.levelName}
-    
-  <p><img
-    src={currentBadge.img}
-    alt={currentBadge.name}
-    className="mentor-badge-inline"
-  /></p>
 
-  {/* <i
-    className="bi bi-trophy-fill"
-    style={{
-      fontSize: "1.5rem",
-      color:
-        user.points < 0
-          ? "#50C878"
-          : user.points < 400
-            ? "#B76E79"
-            : user.points < 1500
-              ? "#CD7F32"
-              : user.points < 3000
-                ? "#C0C0C0"
-                : "#FFD700",
-    }}
-  ></i> */}
-</h3>
+        <h3 className="mentor-level-name">
+          You are now a {mentors.levelName}
+          <p>
+            <img
+              src={currentBadge().img}
+              alt={currentBadge().name}
+              className="mentor-badge-inline"
+            />
+          </p>
+        </h3>
 
-        {/* TODO: conditionally render badges based on level stauts */}
         <p className="mentor-points">Points earned: {user.points}</p>
+
         <p className="mentor-next-level">
-          {pointsToNextLevel() !== null
+          {pointsToNextLevel() > 0
             ? `${pointsToNextLevel()} points left to next level`
             : "You've reached the highest level!"}
         </p>
+
         <div className="progress-bar-container">
-          {/* Calculate percentage: (Current / Goal) * 100 */}
           <div
             className="progress-fill"
             style={{
-              width: `${(user.points / (user.points + pointsToNextLevel())) * 100}%`,
+              width:
+                pointsToNextLevel() > 0
+                  ? `${(user.points / (user.points + pointsToNextLevel())) * 100}%`
+                  : "100%",
             }}
           ></div>
         </div>
@@ -108,9 +104,9 @@ const Mentor = ({ mentors }) => {
       {/* Transactions */}
       <section className="mentor-transactions-container">
         <h2 className="mentor-transactions-title">Recent Transactions</h2>
+
         <div className="mentor-transactions-list">
-          {mentors.recentTransactions &&
-          mentors.recentTransactions.length > 0 ? (
+          {mentors.recentTransactions?.length > 0 ? (
             mentors.recentTransactions.map((t) => (
               <div key={t._id} className="mentor-transaction-card">
                 <div className="mentor-transaction-main">
