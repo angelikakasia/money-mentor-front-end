@@ -1,8 +1,14 @@
-import "../../App.css"; 
+import "../../App.css";
 import { Link } from "react-router-dom";
-import NavBar from "../NavBar/Navbar";
+import "./Landing.css";
+import { Container, Row, Col, Button } from "react-bootstrap";
 
-{/* reviews for review ticker */}
+import moneyMentorImg from "../../assets/Money Mentor landing.svg";
+import landingHeroImg from "../../assets/right.svg";
+
+{
+  /* reviews for review ticker */
+}
 const reviews = [
   " 'Money Mentor makes it easy to see where my money goes each month.' - Sarah S. ",
   " 'Tracking expenses helped me feel more in control of my finances.' - Angelika ",
@@ -15,10 +21,14 @@ const ReviewTicker = () => {
       <div className="ticker-track">
         {/* Render the list twice for the infinite loop effect */}
         {reviews.map((review, index) => (
-          <span key={`first-${index}`} className="review-item">{review}</span>
+          <span key={`first-${index}`} className="review-item">
+            {review}
+          </span>
         ))}
         {reviews.map((review, index) => (
-          <span key={`dup-${index}`} className="review-item">{review}</span>
+          <span key={`dup-${index}`} className="review-item">
+            {review}
+          </span>
         ))}
       </div>
     </div>
@@ -28,32 +38,73 @@ const ReviewTicker = () => {
 const Landing = () => {
   return (
     <div className="landing-page-wrapper">
-      <main className="landing-container">
-        <section className="landing-left">
-          <img src="src/assets/Money Mentor landing.svg" alt="Money Mentor" className="money-mentor-img"/>
-          <div className="landing-app-details">
-            <h1>Track your money. <br />  Build better habits.</h1>
-            <h2>A simple way to track income, expenses, and savings while earning points and motivation.</h2>
-            <h3>Add transactions in seconds.</h3>
-            <h3>See monthly totals at a glance.</h3>
-            <h3>Stay motivated as you reach your goals.</h3>
-          </div>
-          
-          <div className="call-to-action">
-            <Link className="primary-btn" to="/sign-up">
-              <button>Get Started</button>
-            </Link>
-            <p>Already have an account? <a href="/sign-in">Sign in</a></p> 
-          </div>
-        </section>
-        <section className="landing-right">
-          <img 
-            src="src/assets/landingpageview.svg" 
-            alt="App at a glance view" 
-            className='landing-hero-img' 
-          />
-        </section>
-      </main>
+      <Container className="py-5">
+        <Row className="align-items-center g-4">
+          {/* Left */}
+          <Col xs={12} lg={6}>
+            <div className="text-center text-lg-start">
+              <img
+                src={moneyMentorImg}
+                alt="Money Mentor"
+                className="landing-logo-img mb-4"
+              />
+
+              <h1 className="display-5 fw-bold">
+                Track your money.
+                <br />
+                Build better habits.
+              </h1>
+
+              <p className="lead text-muted mt-3">
+                A simple way to track income, expenses, and savings while
+                earning points and motivation.
+              </p>
+
+              <ul className="list-unstyled mt-4 mb-4 d-none d-lg-block">
+                <li className="mb-2">✅ Add transactions in seconds.</li>
+                <li className="mb-2">✅ See monthly totals at a glance.</li>
+                <li className="mb-2">
+                  ✅ Stay motivated as you reach your goals.
+                </li>
+              </ul>
+
+              <Row className="justify-content-start">
+                <Col xs={12} lg={6}>
+                  <Button
+                    as={Link}
+                    to="/sign-up"
+                    className="btn-moneymentor w-100"
+                    type="button"
+                  >
+                    Get Started
+                  </Button>
+                </Col>
+              </Row>
+
+              <p className="text-muted mt-3 mb-0">
+                Already have an account?{" "}
+                <Link
+                  to="/sign-in"
+                  className="text-success fw-semibold text-decoration-none"
+                >
+                  Sign in
+                </Link>
+              </p>
+            </div>
+          </Col>
+
+          {/* Right */}
+          <Col xs={12} lg={6}>
+            <div className="text-center">
+              <img
+                src={landingHeroImg}
+                alt="App at a glance view"
+                className="landing-hero-img img-fluid"
+              />
+            </div>
+          </Col>
+        </Row>
+      </Container>
       <ReviewTicker />
     </div>
   );

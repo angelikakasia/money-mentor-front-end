@@ -1,0 +1,16 @@
+.landing-logo-img {
+  max-width: 260px;
+  height: auto;
+}
+
+.landing-hero-img {
+  max-width: 520px;
+}
+
+.landing-link {
+  text-decoration: none;
+  font-weight: 600;
+}
+.landing-link:hover {
+  text-decoration: underline;
+}
