@@ -99,7 +99,9 @@ const App = () => {
 
   return (
     <>
+    <div className="app-container">
       <NavBar />
+      <main className="py-4">
       <Routes>
         <Route path="/" element={user ? <Dashboard /> : <Landing />} />
 
@@ -160,7 +162,9 @@ const App = () => {
           </>
         )}
       </Routes>
+      </main>
       {showFooter && <Footer />}
+      </div>
     </>     
   );
 };
