@@ -1,7 +1,9 @@
 import { useState } from "react";
 import { Link, useLocation } from "react-router-dom";
 import { generateMonthOptions } from "../../utils/dateUtils";
-
+import { useRef } from 'react';
+import jsPDF from 'jspdf';
+import html2canvas from 'html2canvas';
 import { Container, Row, Col, Button, Card, Form } from "react-bootstrap";
 
 import "./TransactionList.css";
@@ -10,6 +12,8 @@ const TransactionList = ({ transactions, categories }) => {
   const [selectedMonth, setSelectedMonth] = useState(
     new Date().toISOString().slice(0, 7)
   );
+
+  const reportRef = useRef(); 
 
   const location = useLocation();
   const from = location.pathname + location.search;
@@ -29,6 +33,25 @@ const TransactionList = ({ transactions, categories }) => {
     const found = categories.find((c) => c._id === categoryId);
     return found ? found.name : "Uncategorized";
   };
+
+  // PDF download logic
+  const handleDownloadPDF = async () => {
+    const element = reportRef.current;
+    // capture canvas
+    const canvas = await html2canvas(element, {
+      scale: 2,
+      useCORS: true,
+      backgroundColor:'#ffffff'
+    });
+
+    const imgData = canvas.toDataURL('image/png');
+    const pdf = new jsPDF('p', 'px', 'a4');
+    const pdfWidth = pdf.internal.pageSize.getWidth();
+    const pdfHeight = (canvas.height * pdfWidth) / canvas.width;
+
+    pdf.addImage(imgData, 'PNG', 0, 0, pdfWidth, pdfHeight);
+    pdf.save(`Money-Mentor-${selectedMonth}.pdf`);
+  }
 
   return (
     <Container className="py-4">
@@ -51,6 +74,10 @@ const TransactionList = ({ transactions, categories }) => {
             + Add Transaction
           </Button>
         </Col>
+        {/* PDF button */}
+        <Col xs='auto'>
+          <Button onClick={handleDownloadPDF}>Download PDF</Button>
+        </Col>
       </Row>
 
       <Row className="justify-content-center mb-3">
@@ -68,6 +95,14 @@ const TransactionList = ({ transactions, categories }) => {
         </Col>
       </Row>
 
+      
+    {/* PDF Capture Area */}
+    <div ref={reportRef} className="p-3 bg-white">
+      <div className="text-center mb-4">
+        <h2 className="h4">Monthly Activity Report</h2>
+        <p className="text-muted">{selectedMonth}</p>
+      </div>
+
       {!filteredTransactions.length ? (
         <p className="text-muted">No transactions for this month.</p>
       ) : (
@@ -82,7 +117,7 @@ const TransactionList = ({ transactions, categories }) => {
                   <Card className="shadow-sm tx-card">
                     <Card.Body>
                       <div className="d-flex align-items-center">
-                        <div className="tx-date me-3 text-muted small">
+                        <div className="tx-date text-nowrap me-3 text-muted small">
                           {new Date(t.date).toLocaleDateString()}
                         </div>
 
@@ -110,6 +145,8 @@ const TransactionList = ({ transactions, categories }) => {
           })}
         </Row>
       )}
+      </div>
+      {/* End of PDF capture area */}
       <Row className="justify-content-center mt-4">
         <Col xs="auto">
           <Button as={Link} to="/" type="button" className="btn-moneymentor">
