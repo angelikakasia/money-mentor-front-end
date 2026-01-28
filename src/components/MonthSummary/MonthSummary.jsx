@@ -3,7 +3,7 @@ import './MonthlySummary.css';
 import { useState, useEffect, useContext} from "react";
 import { UserContext } from "../../contexts/UserContext";
 import { getMonthlySummary } from "../../services/transactionService";
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { 
   BarChart, Bar, XAxis, YAxis, CartesianGrid, 
   Tooltip, ResponsiveContainer, Legend 
@@ -18,6 +18,7 @@ const MonthlySummary = () => {
     const [loading, setLoading] = useState(true);
     // handle html loading & the container re: the chart rendering
     const [containerWidth, setContainerWidth] = useState(0);
+    const navigate = useNavigate();
 
     // fetch data
     useEffect(() => {
@@ -104,11 +105,11 @@ const MonthlySummary = () => {
                 <Card className="monthly-filter-transactions shadow-sm border-0 mb-4">
                     <Card.Body className="d-flex justify-content-between align-items-center px-4 py-4">
                         <Stack direction='horizontal' gap={3}>
-                            <button type='button' onClick={() => setFilter('all')}>All Transactions</button>
-                            <button type='button' onClick={() => setFilter('Income')}>Income</button>
-                            <button type='button' onClick={() => setFilter('Expense')}>Expenses</button> 
+                            <button type='button' className={`filter-options ${filter === 'all' ? 'active-filter' : ''}`} onClick={() => setFilter('all')}>All Transactions</button>
+                            <button type='button' className={`filter-options ${filter === 'Income' ? 'active-filter' : ''}`} onClick={() => setFilter('Income')}>Income</button>
+                            <button type='button' className={`filter-options ${filter === 'Expense' ? 'active-filter' : ''}`} onClick={() => setFilter('Expense')}>Expenses</button> 
                         </Stack>
-                        <h3 className='month-total mb-0 bw-bold'>Total: ${total.toFixed(2)}</h3>
+                        <h3 className='month-total mb-0 fw-bold'>Net Total: ${total.toFixed(2)}</h3>
                     </Card.Body>
                 </Card>
 
@@ -121,7 +122,11 @@ const MonthlySummary = () => {
                         const isIncome = transaction.categoryId?.type === 'Income';
                 
                         return (
-                            <Card key={transaction._id} className="shadow-sm border-0 transaction-card">
+                            <Card 
+                                key={transaction._id} 
+                                className="shadow-sm border-0 transaction-card clickable-card"
+                                onClick={() => navigate(`/transactions/${transaction._id}`, { state: { from: '/summary' } })}
+                                >
                                 <Card.Body className='d-flex justify-content-between align-items-center py-3 px-4'>
                                     <div className="transaction-info d-flex align-items-center">
                                         <div className="transaction-icon fs-3 me-3">
@@ -135,7 +140,7 @@ const MonthlySummary = () => {
                                         </div>
                                     </div>
                                     <div className={`fw-bold fs-5 ${isIncome ? 'amount-income' : 'amount-expense'}`}>
-                                        {isIncome ? '+' : '-'}${transaction.amount.toFixed(2)}
+                                        {isIncome ? '+' : '-'}${Math.abs(transaction.amount).toFixed(2)}
                                     </div>
                                 </Card.Body>
                             </Card>
@@ -162,7 +167,7 @@ const MonthlySummary = () => {
                                 <YAxis tickFormatter={(value) => `$${value}`} />
                                 <Tooltip formatter={(value) => [`$${value.toFixed(2)}`, 'Amount']} />
                                 <Legend />
-                                <Bar dataKey='amount' radius={[4, 4, 0, 0]} fill="#4CAF50" />
+                                <Bar dataKey='amount' radius={[4, 4, 0, 0]} fill="#000000" />
                             </BarChart>
                         </ResponsiveContainer>
                     </div>

@@ -129,7 +129,7 @@ const TransactionDetails = ({ categories, handleDeleteTransaction }) => {
               <Modal.Title>Delete transaction?</Modal.Title>
             </Modal.Header>
 
-            <Modal.Body>This action can’t be undone.</Modal.Body>
+            <Modal.Body>This action can't be undone.</Modal.Body>
 
             <Modal.Footer>
               <Button

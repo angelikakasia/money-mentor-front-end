@@ -1,3 +1,4 @@
+import { Container, Row, Col, Button, Stack } from 'react-bootstrap';
 import "./Landing.css"; 
 import { Link } from "react-router-dom";
 import NavBar from "../NavBar/Navbar";
@@ -28,32 +29,51 @@ const ReviewTicker = () => {
 const Landing = () => {
   return (
     <div className="landing-page-wrapper">
-      <main className="landing-container">
-        <section className="landing-left">
-          <img src="src/assets/Money Mentor landing.svg" alt="Money Mentor" className="money-mentor-img"/>
-          <div className="landing-app-details">
-            <h1>Track your money. <br />  Build better habits.</h1>
-            <h2>A simple way to track income, expenses, and savings while earning points and motivation.</h2>
-            <h3>Add transactions in seconds.</h3>
-            <h3>See monthly totals at a glance.</h3>
-            <h3>Stay motivated as you reach your goals.</h3>
+      <Container className="landing-container py-5 mt-md-5">
+        <Row className='align-items-center g-5'>
+
+        {/* left side */}  
+        <Col lg={6} className="landing-left text-center -text-lg-start">
+          <img 
+            src="src/assets/Money Mentor landing.svg" 
+            alt="Money Mentor" 
+            className="money-mentor-img"
+            style={{ maxWidth: '300px'}} 
+          />
+          <div className="landing-app-details mb-5">
+            <h1 className='display-4 fw-bold mb-3'>Track your money. <br />  Build better habits.</h1>
+            <p className='lead text-muted mb-4'>
+              A simple way to track income, expenses, and savings while earning points and motivation.
+            </p>
+            <ul className='list-unstyled'>
+              <li className='mb-2'>✅ Add transactions in seconds.</li>
+              <li className='mb-2'>✅ See monthly totals at a glance.</li>
+              <li className='mb-2'>✅ Stay motivated as you reach your goals.</li>
+            </ul>
           </div>
           
           <div className="call-to-action">
-            <Link className="primary-btn" to="/sign-up">
-              <button>Get Started</button>
-            </Link>
-            <p>Already have an account? <a href="/sign-in">Sign in</a></p> 
+            <Stack direction='vertical' gap={3} className='justify-content-center justify-content-lg-start align-items-center'>
+              <Link className="primary-btn" to="/sign-up">
+                <button>Get Started</button>
+              </Link>
+              <div className='text-muted'>
+                <p>Already have an account? <a href="/sign-in">Sign in</a></p> 
+              </div>
+            </Stack>
           </div>
-        </section>
-        <section className="landing-right">
+        </Col>
+
+        {/* RIGHT SIDE */}
+        <Col lg={6} md={12} className="landing-right text-center">
           <img 
             src="src/assets/landingpageview.svg" 
             alt="App at a glance view" 
-            className='landing-hero-img' 
+            className='img-fluid landing-hero-img' 
           />
-        </section>
-      </main>
+        </Col>
+        </Row>
+      </Container>
       <ReviewTicker />
     </div>
   );
