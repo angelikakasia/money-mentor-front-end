@@ -67,7 +67,7 @@ const Landing = () => {
         {/* RIGHT SIDE */}
         <Col lg={6} md={12} className="order-1 order-lg-2 text-center">
           <img 
-            src="src/assets/right (1).svg" 
+            src="src/assets/right.svg" 
             alt="App at a glance view" 
             className='img-fluid landing-hero-img mb-4 mb-lg-0' 
           />
