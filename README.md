@@ -6,9 +6,12 @@
 ---
 # Frontend
 
-![money-mentor](ima.png)
-![money-mentor](im32.png)
-![money-mentor](im44.png)
+<img width="1069" height="946" alt="money mentor landing" src="https://github.com/user-attachments/assets/b15f0e5f-a19b-4480-9213-360332f58530" />
+
+
+
+![money-mentor](im26.png)
+![money-mentor](im66.png)
 ![money-mentor](im45.png)
 
 Money Mentor is a react-based CRUD application for tracking personal finances and building better money habits through visibility and motivation.
@@ -26,7 +29,10 @@ Money Mentor helps users track income and expenses, view monthly summaries, and 
 - JavaScript
 - CSS
 - REST API
-- Netlify (deployment)
+- React Bootstrap [Doc](https://react-bootstrap.netlify.app/)
+- Recharts React Library [Doc](https://recharts.github.io/en-US/examples/SimpleBarChart/)
+- Netlify (frontend deployment)
+- Heroku (backend deployment)
 
 ---
 
