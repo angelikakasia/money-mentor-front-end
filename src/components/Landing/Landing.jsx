@@ -1,7 +1,6 @@
-import { Container, Row, Col, Button, Stack } from 'react-bootstrap';
+import { Container, Row, Col, Stack } from 'react-bootstrap';
 import "./Landing.css"; 
 import { Link } from "react-router-dom";
-import NavBar from "../NavBar/Navbar";
 import headerImg from '../../assets/mm-landing.svg';
 import landingImg from '../../assets/landing-right.svg';
 
@@ -16,7 +15,7 @@ const ReviewTicker = () => {
   return (
     <div className="testimonials-container">
       <div className="testimonials-ticker-track">
-        {/* Render the list twice for the infinite loop effect */}
+        {/* Render the reviews list twice for the infinite loop effect */}
         {reviews.map((review, index) => (
           <span key={`first-${index}`} className="testimonials-review-item">{review}</span>
         ))}
@@ -66,7 +65,7 @@ const Landing = () => {
           </div>
         </Col>
 
-        {/* RIGHT SIDE */}
+        {/* right side */}
         <Col lg={6} md={12} className="order-1 order-lg-2 text-center">
           <img 
             src={landingImg} 
