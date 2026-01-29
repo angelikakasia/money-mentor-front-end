@@ -11,7 +11,7 @@ const Dashboard = () => {
   const navigate = useNavigate();
   // access global user data (username, points, etc)
   const { user, setUser } = useContext(UserContext);
-  const currentMonth = new Date().toISOString().slice(0, 7);
+
   // state 
   const [selectedMonth, setSelectedMonth] = useState(new Date().toISOString().slice(0, 7));
   const [allTransactions, setAllTransactions] = useState([]);
@@ -22,9 +22,9 @@ const Dashboard = () => {
     const fetchDashboardData = async () => {
       // edge case if no user
       if (!user?._id) {
-      setLoading(false);
-      return;
-    }
+        setLoading(false);
+        return;
+      }
 
       try {
         setLoading(true);
@@ -36,16 +36,13 @@ const Dashboard = () => {
 
         setAllTransactions(transData || []);
         // sync context w/database
-        if (updatedUser) setUser(updatedUser);
-        
-        // debugging () in each transaction
-        console.log("RECENT DATA ARRIVED:", transData);
+        if (updatedUser) setUser(updatedUser);     
       } catch (err) {
         console.log(err);
       } finally {
         setLoading(false);
-      }};
-
+      }
+    };
         fetchDashboardData();
         // only re-run if user id changes
   }, [user?._id]);
@@ -71,14 +68,15 @@ const monthlyData = allTransactions.filter((transactions) =>
     .slice(0, 5);
 
     if (loading) {
-  return (
-    <main className='dash-content-container'>
-      <p>Loading your dashboard...</p>
-    </main>
-  );
-}
-     return (
-        <Container className="py-4 mt-3"> {/* py-4 adds the vertical breathing room you lost */}
+        return (
+            <main className='dash-content-container'>
+                <p>Loading your dashboard...</p>
+            </main>
+        );
+    }
+    
+    return (
+        <Container className="py-4 mt-3"> 
             <Row className="mb-4">
                 <Col>
                     <h1 className="display-6 fw-bold">Welcome, {user.username}!</h1>
@@ -128,6 +126,7 @@ const monthlyData = allTransactions.filter((transactions) =>
         <Row className='recent-activity-section justify-content-center'>
             <Col lg={8}>
                 <h2 className='h4 mb-4'>Here are your recent money moves.</h2>
+                {recentMoves.length > 0 ? ( 
                 <Stack gap={2} className='dashboard-transactions-list mb-4'>
                     {recentMoves.map((transaction) => {
                         const isIncomeItem = transaction.categoryId?.type === 'Income';
@@ -153,7 +152,16 @@ const monthlyData = allTransactions.filter((transactions) =>
                     );
                 })}
                 </Stack>
-
+                ) : (
+                // if user has no transactions yet
+                <Card className='text-center p-5 border-0 shadow-sm mb-4'>
+                    <Card.Body>
+                        <div className='mb-3' style={{ fontSize: '2rem' }}>💸</div>
+                        <h5>No transactions yet!</h5>
+                        <p className='text-muted'>Once you add your first transaction, it will show up here.</p>
+                    </Card.Body>
+                </Card>
+                )}    
                 <Stack direction='horizontal' gap={3} className="dash-transactions-actions justify-content-center">
                     <Link to ='/transactions'>
                         <button type='button'>All Transactions</button>

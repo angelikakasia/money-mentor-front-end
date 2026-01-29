@@ -1,4 +1,4 @@
-import { Container, Row, Col, Card, Button, Stack } from 'react-bootstrap';
+import { Container, Row, Col, Card, Stack } from 'react-bootstrap';
 import './MonthlySummary.css';
 import { useState, useEffect, useContext} from "react";
 import { UserContext } from "../../contexts/UserContext";
@@ -70,11 +70,11 @@ const MonthlySummary = () => {
             return transaction.categoryId?.type === filter;
     });
 
+    // calculating totals that are displayed in the chart
     const incomeTotal = allTransactions.filter(transaction => transaction.categoryId?.type === 'Income').reduce((acc, transaction) => acc + transaction.amount, 0);
     const expenseTotal = allTransactions.filter(transaction => transaction.categoryId?.type === 'Expense').reduce((acc, transaction) => acc + transaction.amount, 0);
     const total = filteredTransactions.reduce((acc, transaction) => acc + transaction.amount, 0);
-    const netSavings = incomeTotal - expenseTotal;
-    console.log(typeof filteredTransactions[0].amount)
+
     const chartData = [
         { name: 'Income', amount: incomeTotal, fill: '#4CAF50' },
         { name: 'Expenses', amount: expenseTotal, fill: '#F44336' }
@@ -101,7 +101,7 @@ const MonthlySummary = () => {
                         <h1 className="display-5 fw-bold text-center">{user.username}'s Monthly Summary</h1>
                     </Col>
                 </Row>
-                
+                {/* filter btns for transaction type */}
                 <Card className="monthly-filter-transactions shadow-sm border-0 mb-4">
                     <Card.Body className="d-flex justify-content-between align-items-center px-4 py-4">
                         <Stack direction='horizontal' gap={3}>
