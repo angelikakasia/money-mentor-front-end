@@ -3,16 +3,16 @@ import './Dashboard.css';
 import { useContext, useEffect, useState } from "react";
 import { useNavigate, Link } from "react-router-dom";
 import { UserContext } from "../../contexts/UserContext";
-// import getRecent for quick summary view of last 5 transactions/current balance
 import * as transactionService from "../../services/transactionService";
 import * as userService from "../../services/userService";
 import { generateMonthOptions } from "../../utils/dateUtils";
 
 const Dashboard = () => {
   const navigate = useNavigate();
+  // access global user data (username, points, etc)
   const { user, setUser } = useContext(UserContext);
   const currentMonth = new Date().toISOString().slice(0, 7);
-  // state
+  // state 
   const [selectedMonth, setSelectedMonth] = useState(new Date().toISOString().slice(0, 7));
   const [allTransactions, setAllTransactions] = useState([]);
   const [loading, setLoading] = useState(true);
@@ -20,6 +20,7 @@ const Dashboard = () => {
   // fetch all data on mount
   useEffect(() => {
     const fetchDashboardData = async () => {
+      // edge case if no user
       if (!user?._id) {
       setLoading(false);
       return;
@@ -27,13 +28,14 @@ const Dashboard = () => {
 
       try {
         setLoading(true);
-        
+        // fetch transactions & user details simultaneously
         const [transData, updatedUser] = await Promise.all([
             transactionService.index(),
             userService.index(user._id)
         ]);
 
         setAllTransactions(transData || []);
+        // sync context w/database
         if (updatedUser) setUser(updatedUser);
         
         // debugging () in each transaction
@@ -45,22 +47,25 @@ const Dashboard = () => {
       }};
 
         fetchDashboardData();
+        // only re-run if user id changes
   }, [user?._id]);
 
+// filter for selected month transactions
 const monthlyData = allTransactions.filter((transactions) =>
     transactions.date.startsWith(selectedMonth),
   );
-  console.log(monthlyData)
+  // calculate total income for month 
   const income = monthlyData
     .filter((transactions) => transactions.categoryId?.type === "Income")
     .reduce((acc, transactions) => acc + Number(transactions.amount), 0);
+  // calculate total expenses for month    
   const expenses = monthlyData
     .filter((transactions) => transactions.categoryId?.type === "Expense")
     .reduce((acc, transactions) => acc + Number(transactions.amount), 0);
+  // bottom line    
   const net = income - expenses;
 
-  console.log(allTransactions[0]?.categoryId);
-
+  // Sort by date (newest first) and grab only the first 5
   const recentMoves = [...allTransactions]
     .sort((a, b) => new Date(b.date) - new Date(a.date))
     .slice(0, 5);
