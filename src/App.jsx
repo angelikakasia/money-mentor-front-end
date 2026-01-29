@@ -24,7 +24,6 @@ import MonthlySummary from "./components/MonthSummary/MonthSummary.jsx";
 
 const App = () => {
   const { user } = useContext(UserContext);
-  console.log(user);
   // Needed for TransactionList
   const [categories, setCategories] = useState([]);
   const navigate = useNavigate();
@@ -73,7 +72,6 @@ const App = () => {
 
     navigate("/transactions");
   };
-  console.log(mentors)
 
   useEffect(() => {
     const fetchAllCategories = async () => {
