@@ -1,15 +1,22 @@
 
+<div id="header" align="center">
 
+<img width="713" height="62" alt="banner" src="https://github.com/user-attachments/assets/9f8c1e26-b315-4e3b-9f11-1888e3ce55a0" />
 
-![money-mentor](mm3.png)
+</div>
   
 ---
 # Frontend
 
-![money-mentor](ima.png)
-![money-mentor](im32.png)
-![money-mentor](im44.png)
-![money-mentor](im45.png)
+<div id='screenshots' align='center'>
+  
+<img width="600" alt="landing-page" src="https://github.com/user-attachments/assets/f4acd82b-86cc-4386-8bc9-7f89eb01d19a" />
+
+<img width="600" alt="transactions" src="https://github.com/user-attachments/assets/d39ada51-882c-4b6e-857c-ca3403cf9b35" />
+
+<img width="600" alt="mentor profile" src="https://github.com/user-attachments/assets/117a4be6-f86c-421b-bc2e-b6113aa9d345" />
+
+</div>
 
 Money Mentor is a react-based CRUD application for tracking personal finances and building better money habits through visibility and motivation.
 
